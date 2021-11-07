@@ -69,16 +69,25 @@ public class Delegate extends JFrame implements PropertyChangeListener {
     private void createToolBarButtons() {
         // add icons to buttons.
         ImageIcon colorImgIcon = new ImageIcon(new ImageIcon("Icons/color-circle.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        ImageIcon undoImgIcon = new ImageIcon(new ImageIcon("Icons/undo.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        ImageIcon redoImgIcon = new ImageIcon(new ImageIcon("Icons/redo.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        ImageIcon lineImgIcon = new ImageIcon(new ImageIcon("Icons/line.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        ImageIcon rectangleImgIcon = new ImageIcon(new ImageIcon("Icons/rectangle.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        ImageIcon ellipseImgIcon = new ImageIcon(new ImageIcon("Icons/ellipse.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        ImageIcon diagonalCrossImgIcon = new ImageIcon(new ImageIcon("Icons/diagonalcross.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+
+
+
         // Create colour button.
         buttonColour = new JButton(colorImgIcon);
         // Create undo and redo buttons.
-        buttonUndo = new JButton("Undo");
-        buttonRedo = new JButton("Redo");
+        buttonUndo = new JButton(undoImgIcon);
+        buttonRedo = new JButton(redoImgIcon);
         // Create shapes buttons.
-        buttonLine = new JButton("Line");
-        buttonRectangle = new JButton("Rectangle");
-        buttonEllipse = new JButton("Ellipse");
-        buttonDiagonalCross = new JButton("DiagonalCross");
+        buttonLine = new JButton(lineImgIcon);
+        buttonRectangle = new JButton(rectangleImgIcon);
+        buttonEllipse = new JButton(ellipseImgIcon);
+        buttonDiagonalCross = new JButton(diagonalCrossImgIcon);
 
         // add buttons to the toolbar
         toolbar.add(buttonColour);
