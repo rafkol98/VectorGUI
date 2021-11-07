@@ -2,9 +2,9 @@ package model.shapes;
 
 import java.awt.*;
 
-public class StraightLine extends VectorShape {
-
-
+public class VectorStraightLine extends VectorShape {
+    
+    // Points of the straight line.
     private Point start, end;
 
     /**
@@ -14,8 +14,10 @@ public class StraightLine extends VectorShape {
      * @param colour   the colour that the shape will have. Uses the Java's Colour class.
      * @param isFilled if the shape is filled or not.
      */
-    public StraightLine(String id, Color colour, boolean isFilled, Point start, Point end) {
+    public VectorStraightLine(String id, Color colour, boolean isFilled, Point start, Point end) {
         super(id, colour, isFilled);
+        this.start = start;
+        this.end = end;
     }
 
     /**
