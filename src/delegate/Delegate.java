@@ -6,8 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -15,8 +14,6 @@ public class Delegate extends JFrame implements PropertyChangeListener {
 
     private static final int FRAME_HEIGHT = 800;
     private static final int FRAME_WIDTH = 1000;
-    private static final int TEXT_HEIGHT = 10;
-    private static final int TEXT_WIDTH = 10;
 
     private JFrame mainFrame;
 
@@ -37,7 +34,7 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         // TODO: replace with Toolbar
         JButton button = new JButton("Button 1 (PAGE_START)");
         setupToolBar();
-        pane.add(toolbar, BorderLayout.PAGE_START);
+        pane.add(toolbar, BorderLayout.NORTH);
 
         // TODO: replace with main GUI components
         //Make the center component big, since that's the
@@ -47,16 +44,33 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         pane.add(button, BorderLayout.CENTER);
 
 
-        button = new JButton("Long-Named Button 4 (PAGE_END)");
-        pane.add(button, BorderLayout.PAGE_END);
+//        button = new JButton("Long-Named Button 4 (PAGE_END)");
+//        pane.add(button, BorderLayout.PAGE_END);
 
     }
 
     private void setupToolBar() {
+        // Initialise new toolbar.
         toolbar = new JToolBar();
 
+        // add the buttons to the toolbar.
+        createToolBarButtons();
+
+        // add
+
+        // add actions to the toolbar.
+        addActionsToButtons();
+
+    }
+
+    /**
+     *
+     */
+    private void createToolBarButtons() {
+        // add icons to buttons.
+        ImageIcon colorImgIcon = new ImageIcon(new ImageIcon("Icons/color-circle.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         // Create colour button.
-        buttonColour = new JButton("Colour");
+        buttonColour = new JButton(colorImgIcon);
         // Create undo and redo buttons.
         buttonUndo = new JButton("Undo");
         buttonRedo = new JButton("Redo");
@@ -66,23 +80,42 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         buttonEllipse = new JButton("Ellipse");
         buttonDiagonalCross = new JButton("DiagonalCross");
 
-        // add buttons, label, and textfield to the toolbar
+        // add buttons to the toolbar
         toolbar.add(buttonColour);
-
-        addActionsToButtons();
-
+        toolbar.add(buttonUndo);
+        toolbar.add(buttonRedo);
+        toolbar.add(buttonLine);
+        toolbar.add(buttonRectangle);
+        toolbar.add(buttonEllipse);
+        toolbar.add(buttonDiagonalCross);
     }
 
+    /**
+     * Add an action to each of the buttons in the toolbar.
+     */
     private void addActionsToButtons() {
+        // Button Colour action - show color palette.
         buttonColour.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 // Select color from the color palette.
                 Color chosenColor = JColorChooser.showDialog(Delegate.this,"Color Chooser",Color.BLACK);
                 if (chosenColor != null) {
-                    // TODO: add to model.
+                    // TODO: add chosenColor to model.
                 }
             }
         });
+
+//        buttonColour.addActionListener(new ActionListener(){
+//            public void actionPerformed(ActionEvent e){
+//                // Select color from the color palette.
+//                Color chosenColor = JColorChooser.showDialog(Delegate.this,"Color Chooser",Color.BLACK);
+//                if (chosenColor != null) {
+//                    // TODO: add chosenColor to model.
+//                }
+//            }
+//        });
+
+
     }
 
 
@@ -94,7 +127,7 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         //Set up the content pane.
         addComponentsToPane(mainFrame.getContentPane());
         mainFrame.setVisible(true);
-
+        mainFrame.setResizable(false);
 
     }
 
@@ -106,6 +139,5 @@ public class Delegate extends JFrame implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
 
     }
-
 
 }
