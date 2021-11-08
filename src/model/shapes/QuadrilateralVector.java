@@ -52,6 +52,8 @@ public abstract class QuadrilateralVector extends ShapeVector {
         this.end = end;
     }
 
+
+    //TODO: problem with direction
     public int getHeight() {
         height = Math.abs(end.y - start.y);
         return height;
@@ -60,6 +62,14 @@ public abstract class QuadrilateralVector extends ShapeVector {
     public int getWidth() {
         width = Math.abs(end.x - start.x);
         return width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
     }
 
     @Override

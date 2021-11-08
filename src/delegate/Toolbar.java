@@ -10,11 +10,10 @@
 //    private JToolBar toolbar;
 //    private JButton buttonColour, buttonUndo, buttonRedo, buttonLine, buttonRectangle, buttonEllipse, buttonDiagonalCross;
 //
-//    //TODO: maybe toolbar in another class?
 //
 //    public Toolbar() {
-//        this.setVisible(true);
 //        setupToolBar();
+//        this.setVisible(true);
 //    }
 //
 //

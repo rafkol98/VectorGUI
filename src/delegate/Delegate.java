@@ -20,7 +20,7 @@ public class Delegate extends JFrame implements PropertyChangeListener {
     private JFrame mainFrame;
 
     private JToolBar toolbar;
-    private JButton buttonColour, buttonUndo, buttonRedo, buttonLine, buttonRectangle, buttonEllipse, buttonDiagonalCross;
+    private JButton buttonColour, buttonUndo, buttonRedo, buttonLine, buttonRectangle, buttonSquare, buttonEllipse, buttonDiagonalCross;
     private JMenuBar menu;
 
     private Model model;
@@ -94,6 +94,8 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         // Create shapes buttons.
         buttonLine = new JButton(lineImgIcon);
         buttonRectangle = new JButton(rectangleImgIcon);
+        //TODO: update this!
+        buttonSquare = new JButton(rectangleImgIcon);
         buttonEllipse = new JButton(ellipseImgIcon);
         buttonDiagonalCross = new JButton(diagonalCrossImgIcon);
 
@@ -103,6 +105,7 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         toolbar.add(buttonRedo);
         toolbar.add(buttonLine);
         toolbar.add(buttonRectangle);
+        toolbar.add(buttonSquare);
         toolbar.add(buttonEllipse);
         toolbar.add(buttonDiagonalCross);
     }
@@ -117,7 +120,9 @@ public class Delegate extends JFrame implements PropertyChangeListener {
                 // Select color from the color palette.
                 Color chosenColor = JColorChooser.showDialog(Delegate.this, "Color Chooser", Color.BLACK);
                 if (chosenColor != null) {
-                    // TODO: add chosenColor to model.
+                    System.out.println("ALO");
+                    // Change color to selected.
+                    model.changeColor(chosenColor);
                 }
             }
         });
@@ -147,6 +152,13 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         buttonRectangle.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 model.selectShape(RECTANGLE);
+            }
+        });
+
+        // Draw new square button.
+        buttonSquare.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                model.selectShape(SQUARE);
             }
         });
 

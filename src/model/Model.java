@@ -31,7 +31,10 @@ public class Model implements ModelInterface{
 
     @Override
     public void changeColor(Color color) {
-
+        Color oldColor = this.color;
+        // Set new color selected as color.
+        this.color = color;
+        notifier.firePropertyChange("changeColor", oldColor, color);
     }
 
     @Override

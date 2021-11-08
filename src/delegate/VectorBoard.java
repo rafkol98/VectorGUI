@@ -4,6 +4,7 @@ import main.Configuration;
 import model.Model;
 import model.shapes.RectangleVector;
 import model.shapes.ShapeVector;
+import model.shapes.SquareVector;
 import model.shapes.StraightLineVector;
 
 import javax.swing.*;
@@ -25,11 +26,11 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
     private ArrayList<ShapeVector> shapesList;
 
     private Color color;
-//    private boolean hasFilling;
 
     // Initialise vectors.
     private StraightLineVector straightLineVector;
     private RectangleVector rectangleVector;
+    private SquareVector squareVector;
 
     public VectorBoard(Model model) {
         this.model = model;
@@ -39,8 +40,8 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
         this.setBackground(Color.WHITE);
         this.model.addObserver(this);
         this.color = Color.BLACK;
-        selectedShapeType = LINE;
-        shapesList = new ArrayList<>();
+        this.selectedShapeType = LINE;
+        this.shapesList = new ArrayList<>();
     }
 
 
@@ -48,22 +49,27 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
         super.paintComponent(g);
         System.out.println("MESA");
         g.setColor(Color.WHITE);
-        g.fillRect(0,0,getWidth(), getHeight());
+        g.fillRect(0, 0, getWidth(), getHeight());
 
 
         for (ShapeVector shape : shapesList) {
-            System.out.println(shapesList.size());
-            // TODO: CHANGE TO COLOR.
-            g.setColor(Color.black);
-            System.out.println("DAME called");
-            switch(shape.getType()) {
+            // Set color as the color of the current shape.
+            g.setColor(shape.getColour());
+
+            // Create shape depending on shape type.
+            switch (shape.getType()) {
                 case LINE:
-                    g.drawLine(((StraightLineVector) shape).getStart().x, ((StraightLineVector) shape).getStart().y, ((StraightLineVector) shape).getEnd().x, ((StraightLineVector) shape).getEnd().y );
+                    // Set color to color selected.
+                    g.drawLine(((StraightLineVector) shape).getStart().x, ((StraightLineVector) shape).getStart().y, ((StraightLineVector) shape).getEnd().x, ((StraightLineVector) shape).getEnd().y);
                     break;
 
                 case RECTANGLE:
-                    System.out.println("sto rec");
-                    g.drawRect(((RectangleVector) shape).getStart().x, ((RectangleVector) shape).getStart().y, ((RectangleVector) shape).getWidth(), ((RectangleVector) shape).getHeight() );
+                    g.drawRect(((RectangleVector) shape).getStart().x, ((RectangleVector) shape).getStart().y, ((RectangleVector) shape).getWidth(), ((RectangleVector) shape).getHeight());
+                    break;
+
+                case SQUARE:
+                    System.out.println("sto square");
+                    g.drawRect(((SquareVector) shape).getStart().x, ((SquareVector) shape).getStart().y, ((SquareVector) shape).getWidth(), ((SquareVector) shape).getHeight());
                     break;
             }
 
@@ -79,11 +85,24 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if(evt.getSource() == model && evt.getPropertyName().equals("selectedShape")) {
+        if (evt.getSource() == model && evt.getPropertyName().equals("selectedShape")) {
             // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
-            SwingUtilities.invokeLater(new Runnable(){
-                public void run(){
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+
+                    System.out.println("RUNNING shape");
                     selectedShapeType = (String) evt.getNewValue();
+                }
+            });
+        }
+
+        if (evt.getSource() == model && evt.getPropertyName().equals("changeColor")) {
+            // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    System.out.println("RUNNING col");
+                    color = (Color) evt.getNewValue();
+                    System.out.println(color.toString());
                 }
             });
         }
@@ -99,12 +118,15 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
     public void mousePressed(MouseEvent e) {
         switch (selectedShapeType) {
             case LINE:
-                straightLineVector = new StraightLineVector(Color.BLACK,true, e.getPoint(), new Point());
+                straightLineVector = new StraightLineVector(color, true, e.getPoint(), new Point());
                 break;
 
             case RECTANGLE:
-                System.out.println("REC called");
-                rectangleVector = new RectangleVector(Color.BLACK,true, e.getPoint(), new Point());
+                rectangleVector = new RectangleVector(color, true, e.getPoint(), new Point());
+                break;
+
+            case SQUARE:
+                squareVector = new SquareVector(color, true, e.getPoint(), new Point());
                 break;
 
         }
@@ -122,6 +144,10 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                 rectangleVector.setEnd(e.getPoint());
                 break;
 
+            case SQUARE:
+                squareVector.setEnd(e.getPoint());
+                break;
+
         }
 
     }
@@ -137,6 +163,11 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
             case RECTANGLE:
                 shapesList.add(rectangleVector);
                 model.addVector(rectangleVector);
+                break;
+
+            case SQUARE:
+                shapesList.add(squareVector);
+                model.addVector(squareVector);
                 break;
         }
         repaint();
