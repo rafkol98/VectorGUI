@@ -1,12 +1,12 @@
 package delegate;
 
+import main.Configuration;
 import model.Model;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -137,28 +137,28 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         // Draw new line button.
         buttonLine.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                model.selectShape(Configuration.LINE);
             }
         });
 
         // Draw new rectangle button.
         buttonRectangle.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                model.selectShape(Configuration.RECTANGLE);
             }
         });
 
         // Draw new ellipse button.
         buttonEllipse.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                model.selectShape(Configuration.ELLIPSE);
             }
         });
 
         // Draw new diagonal cross button.
         buttonDiagonalCross.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                model.selectShape(Configuration.CROSS);
             }
         });
 

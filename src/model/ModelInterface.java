@@ -9,7 +9,7 @@ public interface ModelInterface {
 
     void changeColor(Color color);
 
-    void createShapeSelected(String selectedShape);
+    void selectShape(String selectedShape);
 
     void undo();
 
