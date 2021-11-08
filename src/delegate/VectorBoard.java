@@ -56,7 +56,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
             // TODO: CHANGE TO COLOR.
             g.setColor(Color.black);
             System.out.println("DAME called");
-            switch(shape.getShapeType()) {
+            switch(shape.getType()) {
                 case LINE:
                     g.drawLine(((StraightLineVector) shape).getStart().x, ((StraightLineVector) shape).getStart().y, ((StraightLineVector) shape).getEnd().x, ((StraightLineVector) shape).getEnd().y );
                     break;
@@ -99,12 +99,12 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
     public void mousePressed(MouseEvent e) {
         switch (selectedShapeType) {
             case LINE:
-                straightLineVector = new StraightLineVector(LINE, Color.BLACK,true, e.getPoint(), new Point());
+                straightLineVector = new StraightLineVector(Color.BLACK,true, e.getPoint(), new Point());
                 break;
 
             case RECTANGLE:
                 System.out.println("REC called");
-                rectangleVector = new RectangleVector(RECTANGLE, Color.BLACK,true, e.getPoint(), new Point());
+                rectangleVector = new RectangleVector(Color.BLACK,true, e.getPoint(), new Point());
                 break;
 
         }

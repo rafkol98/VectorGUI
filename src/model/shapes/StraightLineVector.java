@@ -1,5 +1,7 @@
 package model.shapes;
 
+import main.Configuration;
+
 import java.awt.*;
 
 public class StraightLineVector extends ShapeVector {
@@ -10,12 +12,11 @@ public class StraightLineVector extends ShapeVector {
     /**
      * Constructor for a new straight line.
      *
-     * @param shapeType       the unique shapeType of the shape.
      * @param colour   the colour that the shape will have. Uses the Java's Colour class.
      * @param isFilled if the shape is filled or not.
      */
-    public StraightLineVector(String shapeType, Color colour, boolean isFilled, Point start, Point end) {
-        super(shapeType, colour, isFilled);
+    public StraightLineVector(Color colour, boolean isFilled, Point start, Point end) {
+        super(colour, isFilled);
         this.start = start;
         this.end = end;
     }
@@ -50,5 +51,10 @@ public class StraightLineVector extends ShapeVector {
      */
     public void setEnd(Point end) {
         this.end = end;
+    }
+
+    @Override
+    public String getType() {
+        return Configuration.LINE;
     }
 }

@@ -5,6 +5,9 @@ public abstract class Configuration {
     /**
      *
      */
+
+
+
     public static final String LINE = "line";
 
     public static final String RECTANGLE = "rectangle";

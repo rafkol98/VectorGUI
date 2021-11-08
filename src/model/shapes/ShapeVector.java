@@ -2,31 +2,20 @@ package model.shapes;
 
 import java.awt.*;
 
-public class ShapeVector {
+public abstract class ShapeVector {
 
     // Initialise shape variables.
-    private String shapeType;
     private Color colour;
     private boolean isFilled;
 
     /**
      * Constructor for a new VectorShape.
-     * @param shapeType the type of the shape.
      * @param colour the colour that the shape will have. Uses the Java's Colour class.
      * @param isFilled if the shape is filled or not.
      */
-    public ShapeVector(String shapeType, Color colour, boolean isFilled) {
-        this.shapeType = shapeType;
+    public ShapeVector(Color colour, boolean isFilled) {
         this.colour = colour;
         this.isFilled = isFilled;
-    }
-
-    /**
-     * Get shape's id.
-     * @return id of shape.
-     */
-    public String getShapeType() {
-        return shapeType;
     }
 
     /**
@@ -44,4 +33,6 @@ public class ShapeVector {
     public boolean isFilled() {
         return isFilled;
     }
+
+    public abstract String getType();
 }
