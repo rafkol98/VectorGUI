@@ -29,26 +29,37 @@ public class Delegate extends JFrame implements PropertyChangeListener {
 
     }
 
+    public void setupFrame() {
+        this.mainFrame = new JFrame();
+        mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //Set up the content pane.
+        addComponentsToPane(mainFrame.getContentPane());
+        mainFrame.setVisible(true);
+        mainFrame.setResizable(false);
+
+    }
+
+
     public void addComponentsToPane(Container pane) {
 
-        // TODO: replace with Toolbar
-        JButton button = new JButton("Button 1 (PAGE_START)");
         setupToolBar();
         pane.add(toolbar, BorderLayout.NORTH);
 
         // TODO: replace with main GUI components
         //Make the center component big, since that's the
         //typical usage of BorderLayout.
-        button = new JButton("Button 2 (CENTER)");
-//        button.setPreferredSize(new Dimension(200, 100));
-        pane.add(button, BorderLayout.CENTER);
-
-
-//        button = new JButton("Long-Named Button 4 (PAGE_END)");
-//        pane.add(button, BorderLayout.PAGE_END);
+        VectorBoard vectorBoard = new VectorBoard(model);
+        JButton button = new JButton("Button 2 (CENTER)");
+        pane.add(vectorBoard, BorderLayout.CENTER);
 
     }
 
+    //TODO: maybe toolbar in another class?
+
+    /**
+     * Set's up the toolbar.
+     */
     private void setupToolBar() {
         // Initialise new toolbar.
         toolbar = new JToolBar();
@@ -56,15 +67,12 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         // add the buttons to the toolbar.
         createToolBarButtons();
 
-        // add
-
         // add actions to the toolbar.
         addActionsToButtons();
-
     }
 
     /**
-     *
+     * Creates all the buttons for the toolbar in an appropriate fashion.
      */
     private void createToolBarButtons() {
         // add icons to buttons.
@@ -74,9 +82,7 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         ImageIcon lineImgIcon = new ImageIcon(new ImageIcon("Icons/line.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         ImageIcon rectangleImgIcon = new ImageIcon(new ImageIcon("Icons/rectangle.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         ImageIcon ellipseImgIcon = new ImageIcon(new ImageIcon("Icons/ellipse.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-        ImageIcon diagonalCrossImgIcon = new ImageIcon(new ImageIcon("Icons/diagonalcross.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-
-
+        ImageIcon diagonalCrossImgIcon = new ImageIcon(new ImageIcon("Icons/diagonal_cross.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
 
         // Create colour button.
         buttonColour = new JButton(colorImgIcon);
@@ -104,44 +110,66 @@ public class Delegate extends JFrame implements PropertyChangeListener {
      */
     private void addActionsToButtons() {
         // Button Colour action - show color palette.
-        buttonColour.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
+        buttonColour.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 // Select color from the color palette.
-                Color chosenColor = JColorChooser.showDialog(Delegate.this,"Color Chooser",Color.BLACK);
+                Color chosenColor = JColorChooser.showDialog(Delegate.this, "Color Chooser", Color.BLACK);
                 if (chosenColor != null) {
                     // TODO: add chosenColor to model.
                 }
             }
         });
 
-//        buttonColour.addActionListener(new ActionListener(){
-//            public void actionPerformed(ActionEvent e){
-//                // Select color from the color palette.
-//                Color chosenColor = JColorChooser.showDialog(Delegate.this,"Color Chooser",Color.BLACK);
-//                if (chosenColor != null) {
-//                    // TODO: add chosenColor to model.
-//                }
-//            }
-//        });
+        // Undo button.
+        buttonUndo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        // Redo button.
+        buttonRedo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        // Draw new line button.
+        buttonLine.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        // Draw new rectangle button.
+        buttonRectangle.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        // Draw new ellipse button.
+        buttonEllipse.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        // Draw new diagonal cross button.
+        buttonDiagonalCross.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
 
     }
 
 
-
-    public void setupFrame() {
-        this.mainFrame = new JFrame();
-        mainFrame.setSize (FRAME_WIDTH, FRAME_HEIGHT);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //Set up the content pane.
-        addComponentsToPane(mainFrame.getContentPane());
-        mainFrame.setVisible(true);
-        mainFrame.setResizable(false);
-
-    }
 
     /**
      * The method is called when the model changes (i.e. when the model executes notifier.firePropertyChange)
+     *
      * @param evt
      */
     @Override

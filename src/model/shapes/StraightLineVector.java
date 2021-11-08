@@ -2,7 +2,7 @@ package model.shapes;
 
 import java.awt.*;
 
-public class VectorStraightLine extends VectorShape {
+public class StraightLineVector extends ShapeVector {
     
     // Points of the straight line.
     private Point start, end;
@@ -10,12 +10,12 @@ public class VectorStraightLine extends VectorShape {
     /**
      * Constructor for a new straight line.
      *
-     * @param id       the unique id of the shape.
+     * @param shapeType       the unique shapeType of the shape.
      * @param colour   the colour that the shape will have. Uses the Java's Colour class.
      * @param isFilled if the shape is filled or not.
      */
-    public VectorStraightLine(String id, Color colour, boolean isFilled, Point start, Point end) {
-        super(id, colour, isFilled);
+    public StraightLineVector(String shapeType, Color colour, boolean isFilled, Point start, Point end) {
+        super(shapeType, colour, isFilled);
         this.start = start;
         this.end = end;
     }
