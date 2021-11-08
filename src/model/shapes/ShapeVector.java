@@ -11,7 +11,7 @@ public class ShapeVector {
 
     /**
      * Constructor for a new VectorShape.
-     * @param shapeType the unique id of the shape.
+     * @param shapeType the type of the shape.
      * @param colour the colour that the shape will have. Uses the Java's Colour class.
      * @param isFilled if the shape is filled or not.
      */

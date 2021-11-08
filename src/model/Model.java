@@ -43,11 +43,8 @@ public class Model implements ModelInterface{
         notifier.firePropertyChange("selectedShape", oldSelectedShape, currentSelectedShape);
     }
 
-    public void createStraightLineVector(Point start, Point end) {
-        ArrayList<ShapeVector> oldShapes = (ArrayList<ShapeVector>) shapes.clone();
-        StraightLineVector line = new StraightLineVector(currentSelectedShape, color, true, start, end);
-        shapes.add(line);
-//        notifier.firePropertyChange("CreateShape", oldShapes, shapes);
+    public void addVector(ShapeVector shapeVector) {
+        shapes.add(shapeVector);
     }
 
     @Override

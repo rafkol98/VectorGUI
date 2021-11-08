@@ -2,6 +2,7 @@ package delegate;
 
 import main.Configuration;
 import model.Model;
+import model.shapes.RectangleVector;
 import model.shapes.ShapeVector;
 import model.shapes.StraightLineVector;
 
@@ -28,6 +29,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     // Initialise vectors.
     private StraightLineVector straightLineVector;
+    private RectangleVector rectangleVector;
 
     public VectorBoard(Model model) {
         this.model = model;
@@ -50,12 +52,18 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
 
         for (ShapeVector shape : shapesList) {
+            System.out.println(shapesList.size());
             // TODO: CHANGE TO COLOR.
             g.setColor(Color.black);
             System.out.println("DAME called");
             switch(shape.getShapeType()) {
                 case LINE:
                     g.drawLine(((StraightLineVector) shape).getStart().x, ((StraightLineVector) shape).getStart().y, ((StraightLineVector) shape).getEnd().x, ((StraightLineVector) shape).getEnd().y );
+                    break;
+
+                case RECTANGLE:
+                    System.out.println("sto rec");
+                    g.drawRect(((RectangleVector) shape).getStart().x, ((RectangleVector) shape).getStart().y, ((RectangleVector) shape).getWidth(), ((RectangleVector) shape).getHeight() );
                     break;
             }
 
@@ -94,6 +102,11 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                 straightLineVector = new StraightLineVector(LINE, Color.BLACK,true, e.getPoint(), new Point());
                 break;
 
+            case RECTANGLE:
+                System.out.println("REC called");
+                rectangleVector = new RectangleVector(RECTANGLE, Color.BLACK,true, e.getPoint(), new Point());
+                break;
+
         }
 
     }
@@ -105,6 +118,10 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                 straightLineVector.setEnd(e.getPoint());
                 break;
 
+            case RECTANGLE:
+                rectangleVector.setEnd(e.getPoint());
+                break;
+
         }
 
     }
@@ -113,11 +130,14 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
     public void mouseReleased(MouseEvent e) {
         switch (selectedShapeType) {
             case LINE:
-                System.out.println("malista");
                 shapesList.add(straightLineVector);
-                model.createStraightLineVector(straightLineVector.getStart(), straightLineVector.getEnd());
+                model.addVector(straightLineVector);
                 break;
 
+            case RECTANGLE:
+                shapesList.add(rectangleVector);
+                model.addVector(rectangleVector);
+                break;
         }
         repaint();
     }

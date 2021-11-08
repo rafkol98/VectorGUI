@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import static main.Configuration.*;
+
 public class Delegate extends JFrame implements PropertyChangeListener {
 
     private static final int FRAME_HEIGHT = 800;
@@ -137,28 +139,28 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         // Draw new line button.
         buttonLine.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.selectShape(Configuration.LINE);
+                model.selectShape(LINE);
             }
         });
 
         // Draw new rectangle button.
         buttonRectangle.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.selectShape(Configuration.RECTANGLE);
+                model.selectShape(RECTANGLE);
             }
         });
 
         // Draw new ellipse button.
         buttonEllipse.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.selectShape(Configuration.ELLIPSE);
+                model.selectShape(ELLIPSE);
             }
         });
 
         // Draw new diagonal cross button.
         buttonDiagonalCross.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.selectShape(Configuration.CROSS);
+                model.selectShape(CROSS);
             }
         });
 
