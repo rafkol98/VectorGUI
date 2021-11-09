@@ -1,6 +1,5 @@
 package delegate;
 
-import main.Configuration;
 import model.Model;
 
 import javax.swing.*;
@@ -20,8 +19,11 @@ public class Delegate extends JFrame implements PropertyChangeListener {
     private JFrame mainFrame;
 
     private JToolBar toolbar;
-    private JButton buttonColour, buttonUndo, buttonRedo, buttonLine, buttonRectangle, buttonSquare, buttonEllipse, buttonDiagonalCross;
+    private JButton buttonColour, buttonFill, buttonUndo, buttonRedo, buttonLine, buttonRectangle, buttonSquare, buttonEllipse, buttonDiagonalCross;
     private JMenuBar menu;
+
+    private final ImageIcon fillEmptyImgIcon = new ImageIcon(new ImageIcon("Icons/filling-empty.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+
 
     private Model model;
 
@@ -39,7 +41,6 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         addComponentsToPane(mainFrame.getContentPane());
         mainFrame.setVisible(true);
         mainFrame.setResizable(false);
-
     }
 
 
@@ -78,16 +79,18 @@ public class Delegate extends JFrame implements PropertyChangeListener {
      */
     private void createToolBarButtons() {
         // add icons to buttons.
-        ImageIcon colorImgIcon = new ImageIcon(new ImageIcon("Icons/color-circle.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-        ImageIcon undoImgIcon = new ImageIcon(new ImageIcon("Icons/undo.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-        ImageIcon redoImgIcon = new ImageIcon(new ImageIcon("Icons/redo.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-        ImageIcon lineImgIcon = new ImageIcon(new ImageIcon("Icons/line.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-        ImageIcon rectangleImgIcon = new ImageIcon(new ImageIcon("Icons/rectangle.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-        ImageIcon ellipseImgIcon = new ImageIcon(new ImageIcon("Icons/ellipse.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-        ImageIcon diagonalCrossImgIcon = new ImageIcon(new ImageIcon("Icons/diagonal_cross.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        ImageIcon colorImgIcon = new ImageIcon(new ImageIcon("Icons/color-circle.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+        ImageIcon undoImgIcon = new ImageIcon(new ImageIcon("Icons/undo.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+        ImageIcon redoImgIcon = new ImageIcon(new ImageIcon("Icons/redo.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+        ImageIcon lineImgIcon = new ImageIcon(new ImageIcon("Icons/line.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+        ImageIcon rectangleImgIcon = new ImageIcon(new ImageIcon("Icons/rectangle.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+        ImageIcon ellipseImgIcon = new ImageIcon(new ImageIcon("Icons/ellipse.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+        ImageIcon diagonalCrossImgIcon = new ImageIcon(new ImageIcon("Icons/diagonal_cross.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
 
-        // Create colour button.
+        // Create colour and fill button.
         buttonColour = new JButton(colorImgIcon);
+        buttonFill = new JButton(fillEmptyImgIcon);
+
         // Create undo and redo buttons.
         buttonUndo = new JButton(undoImgIcon);
         buttonRedo = new JButton(redoImgIcon);
@@ -101,6 +104,7 @@ public class Delegate extends JFrame implements PropertyChangeListener {
 
         // add buttons to the toolbar
         toolbar.add(buttonColour);
+        toolbar.add(buttonFill);
         toolbar.add(buttonUndo);
         toolbar.add(buttonRedo);
         toolbar.add(buttonLine);
@@ -125,6 +129,16 @@ public class Delegate extends JFrame implements PropertyChangeListener {
                 }
             }
         });
+
+        buttonFill.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Called");
+                model.changeFillValue();
+                // Update fill button image.
+                updateFillButtonImage();
+            }
+        });
+
 
         // Undo button.
         buttonUndo.addActionListener(new ActionListener() {
@@ -188,6 +202,18 @@ public class Delegate extends JFrame implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+    }
+
+    /**
+     * Updates fill button image depending on whether the user clicked on the fill button.
+     */
+    public void updateFillButtonImage() {
+        if (model.getHasFill()){
+            ImageIcon fillImgIcon = new ImageIcon(new ImageIcon("Icons/filling.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+            buttonFill.setIcon(fillImgIcon);
+        } else {
+            buttonFill.setIcon(fillEmptyImgIcon);
+        }
     }
 
 }

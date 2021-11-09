@@ -11,6 +11,8 @@ public interface ModelInterface {
 
     void selectShape(String selectedShape);
 
+    void createVector(String type, Color colour, boolean isFilled, Point one, Point two);
+
     void undo();
 
     void redo();

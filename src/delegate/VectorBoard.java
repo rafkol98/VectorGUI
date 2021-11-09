@@ -1,6 +1,5 @@
 package delegate;
 
-import main.Configuration;
 import model.Model;
 import model.shapes.*;
 
@@ -24,6 +23,8 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     private Color color;
 
+    boolean isFilled;
+
     Point start, end;
 
     public VectorBoard(Model model) {
@@ -36,8 +37,8 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
         this.color = Color.BLACK;
         this.selectedShapeType = LINE;
         this.shapesList = new ArrayList<>();
+        isFilled = false;
     }
-
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -58,8 +59,11 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                     break;
 
                 case RECTANGLE:
-                    System.out.println(((RectangleVector) shape).getWidth() + " " + ((RectangleVector) shape).getHeight());
-                    g.drawRect(((RectangleVector) shape).getStart().x, ((RectangleVector) shape).getStart().y, ((RectangleVector) shape).getWidth(), ((RectangleVector) shape).getHeight());
+                    if (shape.isFilled()) {
+                        g.fillRect(((RectangleVector) shape).getStart().x, ((RectangleVector) shape).getStart().y, ((RectangleVector) shape).getWidth(), ((RectangleVector) shape).getHeight());
+                    } else {
+                        g.drawRect(((RectangleVector) shape).getStart().x, ((RectangleVector) shape).getStart().y, ((RectangleVector) shape).getWidth(), ((RectangleVector) shape).getHeight());
+                    }
                     break;
 
                 case SQUARE:
@@ -101,6 +105,16 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
             });
         }
 
+        if (evt.getSource() == model && evt.getPropertyName().equals("changeFillValue")) {
+            // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                     isFilled = (Boolean) evt.getNewValue();
+                }
+            });
+        }
+
+
         if (evt.getSource() == model && evt.getPropertyName().equals("newShape")) {
             // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
             SwingUtilities.invokeLater(new Runnable() {
@@ -110,7 +124,6 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                 }
             });
         }
-
     }
 
     @Override
@@ -130,7 +143,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        model.createVector(selectedShapeType, color, true, start, end);
+        model.createVector(selectedShapeType, color, isFilled, start, end);
     }
 
     @Override
