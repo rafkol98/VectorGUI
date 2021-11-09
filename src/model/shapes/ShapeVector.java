@@ -7,15 +7,74 @@ public abstract class ShapeVector {
     // Initialise shape variables.
     private Color colour;
     private boolean isFilled;
+    private Point one, two, start, end;
+
+    public ShapeVector(Color colour, boolean isFilled) {
+        this.colour = colour;
+        this.isFilled = isFilled;
+    }
 
     /**
      * Constructor for a new VectorShape.
      * @param colour the colour that the shape will have. Uses the Java's Colour class.
      * @param isFilled if the shape is filled or not.
      */
-    public ShapeVector(Color colour, boolean isFilled) {
+    public ShapeVector(Color colour, boolean isFilled, Point one, Point two) {
         this.colour = colour;
         this.isFilled = isFilled;
+        this.one = one;
+        this.two = two;
+        start = new Point();
+        end = new Point();
+    }
+
+    public void calculateStartEnd() {
+        if(one.x > two.x) {
+            start.x = two.x;
+            end.x = one.x;
+        } else {
+            start.x = one.x;
+            end.x = two.x;
+        }
+        if(one.y > two.y) {
+            start.y =  two.y;
+            end.y = one.y;
+        } else {
+            start.y = one.y;
+            end.y = two.y;
+        }
+    }
+
+    /**
+     * Get the top left point.
+     * @return top left point of quadrilateral.
+     */
+    public Point getStart() {
+        return start;
+    }
+
+    /**
+     * Set the top left point.
+     */
+    public void setStart(Point start) {
+        one = start;
+        calculateStartEnd();
+    }
+
+    /**
+     * Get the bottom left point.
+     * @return bottom left point of quadrilateral.
+     */
+    public Point getEnd() {
+        return end;
+    }
+
+    /**
+     * Set the bottom left point.
+     */
+    public void setEnd(Point end) {
+        two = end;
+        calculateStartEnd();
     }
 
     /**

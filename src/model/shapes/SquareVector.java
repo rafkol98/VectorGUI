@@ -7,15 +7,17 @@ import java.awt.*;
 public class SquareVector extends QuadrilateralVector {
 
     /**
+     * Constructor for a new VectorShape.
      *
-     * @param colour
-     * @param isFilled
-     * @param start
-     * @param end
+     * @param colour   the colour that the shape will have. Uses the Java's Colour class.
+     * @param isFilled if the shape is filled or not.
+     * @param one
+     * @param two
      */
-    public SquareVector(Color colour, boolean isFilled, Point start, Point end) {
-        super(colour, isFilled, start, end);
+    public SquareVector(Color colour, boolean isFilled, Point one, Point two) {
+        super(colour, isFilled, one, two);
     }
+
 
     @Override
     public String getType() {
