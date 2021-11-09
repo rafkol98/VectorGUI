@@ -166,8 +166,10 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                 break;
 
             case SQUARE:
+                //TODO fix this!
+                squareVector.setHeight(squareVector.getWidth());
+                System.out.println(squareVector.getHeight() +" "+ squareVector.getWidth());
                 shapesList.add(squareVector);
-                model.addVector(squareVector);
                 break;
         }
         repaint();

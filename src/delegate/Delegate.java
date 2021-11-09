@@ -120,7 +120,6 @@ public class Delegate extends JFrame implements PropertyChangeListener {
                 // Select color from the color palette.
                 Color chosenColor = JColorChooser.showDialog(Delegate.this, "Color Chooser", Color.BLACK);
                 if (chosenColor != null) {
-                    System.out.println("ALO");
                     // Change color to selected.
                     model.changeColor(chosenColor);
                 }
