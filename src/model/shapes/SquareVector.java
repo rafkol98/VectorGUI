@@ -4,7 +4,7 @@ import main.Configuration;
 
 import java.awt.*;
 
-public class SquareVector extends QuadrilateralVector {
+public class SquareVector extends TwoDimensionalShapeVector {
 
     /**
      * Constructor for a new VectorShape.

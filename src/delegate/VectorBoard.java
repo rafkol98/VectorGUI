@@ -2,10 +2,7 @@ package delegate;
 
 import main.Configuration;
 import model.Model;
-import model.shapes.RectangleVector;
-import model.shapes.ShapeVector;
-import model.shapes.SquareVector;
-import model.shapes.StraightLineVector;
+import model.shapes.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,11 +23,15 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
     private ArrayList<ShapeVector> shapesList;
 
     private Color color;
+    private ShapeVector shapeVector;
 
     // Initialise vectors.
     private StraightLineVector straightLineVector;
     private RectangleVector rectangleVector;
     private SquareVector squareVector;
+    private EllipseVector ellipseVector;
+
+    Point start, end;
 
     public VectorBoard(Model model) {
         this.model = model;
@@ -53,6 +54,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
 
         for (ShapeVector shape : shapesList) {
+            System.out.println("STO FOR LOOP");
             // Set color as the color of the current shape.
             g.setColor(shape.getColour());
 
@@ -64,12 +66,18 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                     break;
 
                 case RECTANGLE:
+                    System.out.println("Sto REC!");
+                    System.out.println(((RectangleVector) shape).getWidth() +" "+((RectangleVector) shape).getHeight());
                     g.drawRect(((RectangleVector) shape).getStart().x, ((RectangleVector) shape).getStart().y, ((RectangleVector) shape).getWidth(), ((RectangleVector) shape).getHeight());
                     break;
 
                 case SQUARE:
                     System.out.println("sto square");
                     g.drawRect(((SquareVector) shape).getStart().x, ((SquareVector) shape).getStart().y, ((SquareVector) shape).getWidth(), ((SquareVector) shape).getHeight());
+                    break;
+
+                case ELLIPSE:
+                    g.drawOval(((EllipseVector) shape).getStart().x, ((EllipseVector) shape).getStart().y, ((EllipseVector) shape).getWidth(), ((EllipseVector) shape).getHeight());
                     break;
             }
 
@@ -89,7 +97,6 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
             // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-
                     System.out.println("RUNNING shape");
                     selectedShapeType = (String) evt.getNewValue();
                 }
@@ -100,9 +107,19 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
             // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-                    System.out.println("RUNNING col");
                     color = (Color) evt.getNewValue();
                     System.out.println(color.toString());
+                }
+            });
+        }
+
+        if (evt.getSource() == model && evt.getPropertyName().equals("newShape")) {
+            // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    System.out.println("RUNNING new shape");
+                    shapesList = (ArrayList<ShapeVector>) evt.getNewValue();
+                    repaint();
                 }
             });
         }
@@ -116,63 +133,83 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     @Override
     public void mousePressed(MouseEvent e) {
-        switch (selectedShapeType) {
-            case LINE:
-                straightLineVector = new StraightLineVector(color, true, e.getPoint(), new Point());
-                break;
-
-            case RECTANGLE:
-                rectangleVector = new RectangleVector(color, true, e.getPoint(), new Point());
-                break;
-
-            case SQUARE:
-                squareVector = new SquareVector(color, true, e.getPoint(), new Point());
-                break;
-
-        }
+        start = e.getPoint();
+//        switch (selectedShapeType) {
+//            case LINE:
+//
+//                straightLineVector = new StraightLineVector(color, true, e.getPoint(), new Point());
+//                break;
+//
+//            case RECTANGLE:
+//                rectangleVector = new RectangleVector(color, true, e.getPoint(), new Point());
+//                break;
+//
+//            case SQUARE:
+//                squareVector = new SquareVector(color, true, e.getPoint(), new Point());
+//                break;
+//
+//            case ELLIPSE:
+//                ellipseVector = new EllipseVector(color, true, e.getPoint(), new Point());
+//                break;
+//
+//        }
 
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        switch (selectedShapeType) {
-            case LINE:
-                straightLineVector.setEnd(e.getPoint());
-                break;
-
-            case RECTANGLE:
-                rectangleVector.setEnd(e.getPoint());
-                break;
-
-            case SQUARE:
-                squareVector.setEnd(e.getPoint());
-                break;
-
-        }
+        end = e.getPoint();
+//        switch (selectedShapeType) {
+//            case LINE:
+//                straightLineVector.setEnd(e.getPoint());
+//                break;
+//
+//            case RECTANGLE:
+//                rectangleVector.setEnd(e.getPoint());
+//                break;
+//
+//            case SQUARE:
+//                squareVector.setEnd(e.getPoint());
+//                break;
+//
+//            case ELLIPSE:
+//                ellipseVector.setEnd(e.getPoint());
+//                break;
+//
+//        }
 
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        switch (selectedShapeType) {
-            case LINE:
-                shapesList.add(straightLineVector);
-                model.addVector(straightLineVector);
-                break;
 
-            case RECTANGLE:
-                shapesList.add(rectangleVector);
-                model.addVector(rectangleVector);
-                break;
+        model.createVector(selectedShapeType, color, true, start, end);
 
-            case SQUARE:
-                //TODO fix this!
-                squareVector.setHeight(squareVector.getWidth());
-                System.out.println(squareVector.getHeight() +" "+ squareVector.getWidth());
-                shapesList.add(squareVector);
-                break;
-        }
-        repaint();
+//        switch (selectedShapeType) {
+//            case LINE:
+//
+//                shapesList.add(straightLineVector);
+//                model.addVector(straightLineVector);
+//                break;
+//
+//            case RECTANGLE:
+//                shapesList.add(rectangleVector);
+//                model.addVector(rectangleVector);
+//                break;
+//
+//            case SQUARE:
+//                //TODO fix this!
+//                squareVector.setHeight(squareVector.getWidth());
+//                System.out.println(squareVector.getHeight() +" "+ squareVector.getWidth());
+//                shapesList.add(squareVector);
+//                break;
+//
+//            case ELLIPSE:
+//                shapesList.add(ellipseVector);
+//                model.addVector(ellipseVector);
+//                break;
+//        }
+//        repaint();
     }
 
     @Override

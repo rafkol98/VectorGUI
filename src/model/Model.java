@@ -1,12 +1,13 @@
 package model;
 
-import model.shapes.ShapeVector;
-import model.shapes.StraightLineVector;
+import model.shapes.*;
 
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+
+import static main.Configuration.*;
 
 public class Model implements ModelInterface{
 
@@ -46,8 +47,43 @@ public class Model implements ModelInterface{
         notifier.firePropertyChange("selectedShape", oldSelectedShape, currentSelectedShape);
     }
 
-    public void addVector(ShapeVector shapeVector) {
-        shapes.add(shapeVector);
+//    public void addVector(ShapeVector shapeVector) {
+//        // Add vector to shapes list.
+//        shapes.add(shapeVector);
+//    }
+
+    public void createVector(String type, Color colour, boolean isFilled, Point one, Point two) {
+
+        ArrayList<ShapeVector> oldShapes = (ArrayList<ShapeVector>) shapes.clone();
+        ShapeVector shapeVector;
+
+
+        switch (type) {
+            case LINE:
+                System.out.println("HERE createVector");
+                shapeVector = new StraightLineVector(color, true, one, two);
+                shapes.add(shapeVector);
+                break;
+
+            case RECTANGLE:
+                shapeVector = new RectangleVector(color, true, one, two);
+                shapes.add(shapeVector);
+                break;
+
+            case SQUARE:
+                shapeVector = new SquareVector(color, true, one, two);
+                shapes.add(shapeVector);
+                break;
+
+            case ELLIPSE:
+                shapeVector = new EllipseVector(color, true, one, two);
+                shapes.add(shapeVector);
+                break;
+        }
+
+
+        notifier.firePropertyChange("newShape", oldShapes, shapes);
+
     }
 
     @Override

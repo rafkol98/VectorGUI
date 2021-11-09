@@ -4,7 +4,7 @@ import main.Configuration;
 
 import java.awt.*;
 
-public class RectangleVector extends QuadrilateralVector {
+public class RectangleVector extends TwoDimensionalShapeVector {
 
     /**
      * Constructor for a new VectorShape.
