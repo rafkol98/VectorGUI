@@ -48,33 +48,44 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
 
         for (ShapeVector shape : shapesList) {
-            // Set color as the color of the current shape.
-            g.setColor(shape.getColour());
+            // Draw shape.
+            drawShape(g, shape);
+        }
 
-            // Create shape depending on shape type.
-            switch (shape.getType()) {
-                case LINE:
-                    // Set color to color selected.
-                    g.drawLine(((StraightLineVector) shape).getStart().x, ((StraightLineVector) shape).getStart().y, ((StraightLineVector) shape).getEnd().x, ((StraightLineVector) shape).getEnd().y);
-                    break;
+    }
 
-                case RECTANGLE:
-                    if (shape.isFilled()) {
-                        g.fillRect(((RectangleVector) shape).getStart().x, ((RectangleVector) shape).getStart().y, ((RectangleVector) shape).getWidth(), ((RectangleVector) shape).getHeight());
-                    } else {
-                        g.drawRect(((RectangleVector) shape).getStart().x, ((RectangleVector) shape).getStart().y, ((RectangleVector) shape).getWidth(), ((RectangleVector) shape).getHeight());
-                    }
-                    break;
+    /**
+     * Draw shape depending on its type.
+     * @param g the graphics.
+     * @param shape the shape to be drawn.
+     */
+    private void drawShape(Graphics g, ShapeVector shape) {
+        // Set color as the color of the current shape.
+        g.setColor(shape.getColour());
 
-                case SQUARE:
-                    g.drawRect(((SquareVector) shape).getStart().x, ((SquareVector) shape).getStart().y, ((SquareVector) shape).getWidth(), ((SquareVector) shape).getHeight());
-                    break;
+        // Create shape depending on shape type.
+        switch (shape.getType()) {
+            case LINE:
+                // Set color to color selected.
+                g.drawLine(((StraightLineVector) shape).getStart().x, ((StraightLineVector) shape).getStart().y, ((StraightLineVector) shape).getEnd().x, ((StraightLineVector) shape).getEnd().y);
+                break;
 
-                case ELLIPSE:
-                    g.drawOval(((EllipseVector) shape).getStart().x, ((EllipseVector) shape).getStart().y, ((EllipseVector) shape).getWidth(), ((EllipseVector) shape).getHeight());
-                    break;
-            }
+            case RECTANGLE:
+            case SQUARE:
+                if (shape.isFilled()) {
+                    g.fillRect(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
+                } else {
+                    g.drawRect(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
+                }
+                break;
 
+            case ELLIPSE:
+                if (shape.isFilled()) {
+                    g.fillOval(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
+                } else {
+                    g.drawOval(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
+                }
+                break;
         }
 
     }
@@ -87,42 +98,43 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getSource() == model && evt.getPropertyName().equals("selectedShape")) {
-            // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    selectedShapeType = (String) evt.getNewValue();
-                }
-            });
-        }
+        if (evt.getSource() == model) {
+            if (evt.getPropertyName().equals("selectedShape")) {
+                // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        selectedShapeType = (String) evt.getNewValue();
+                    }
+                });
+            }
 
-        if (evt.getSource() == model && evt.getPropertyName().equals("changeColor")) {
-            // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    color = (Color) evt.getNewValue();
-                }
-            });
-        }
+            if (evt.getPropertyName().equals("changeColor")) {
+                // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        color = (Color) evt.getNewValue();
+                    }
+                });
+            }
 
-        if (evt.getSource() == model && evt.getPropertyName().equals("changeFillValue")) {
-            // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                     isFilled = (Boolean) evt.getNewValue();
-                }
-            });
-        }
+            if (evt.getPropertyName().equals("changeFillValue")) {
+                // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        isFilled = (Boolean) evt.getNewValue();
+                    }
+                });
+            }
 
-
-        if (evt.getSource() == model && evt.getPropertyName().equals("newShape")) {
-            // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    shapesList = (ArrayList<ShapeVector>) evt.getNewValue();
-                    repaint();
-                }
-            });
+            if (evt.getPropertyName().equals("newShape")) {
+                // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        shapesList = (ArrayList<ShapeVector>) evt.getNewValue();
+                        repaint();
+                    }
+                });
+            }
         }
     }
 
