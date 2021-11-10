@@ -30,27 +30,11 @@ public class StraightLineVector extends ShapeVector {
     }
 
     /**
-     * Set the starting point - in case of change.
-     * @param start the point to which start will be updated to.
-     */
-    public void setStart(Point start) {
-        this.start = start;
-    }
-
-    /**
      * Get ending point.
      * @return point.
      */
     public Point getEnd() {
         return end;
-    }
-
-    /**
-     * Set the ending point - in case of change.
-     * @param end the point to which end will be updated to.
-     */
-    public void setEnd(Point end) {
-        this.end = end;
     }
 
     @Override

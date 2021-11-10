@@ -59,7 +59,7 @@ public class Model implements ModelInterface{
      */
     @Override
     public void selectShape(String selectedShape) {
-        if(selectedShape.equalsIgnoreCase(LINE) || selectedShape.equalsIgnoreCase(RECTANGLE) || selectedShape.equalsIgnoreCase(SQUARE) || selectedShape.equalsIgnoreCase(ELLIPSE)) {
+        if(selectedShape.equalsIgnoreCase(LINE) || selectedShape.equalsIgnoreCase(RECTANGLE) || selectedShape.equalsIgnoreCase(SQUARE) || selectedShape.equalsIgnoreCase(ELLIPSE) || selectedShape.equalsIgnoreCase(CROSS)) {
             // Make oldSelectedShape have the current value of currentSelectedShape
             String oldSelectedShape = currentSelectedShape;
             // Assign currentSelectedShape to be the new selectedShape passed in.
@@ -106,6 +106,10 @@ public class Model implements ModelInterface{
 
             case ELLIPSE:
                 shapeVector = new EllipseVector(color, isFilled, one, two);
+                break;
+
+            case CROSS:
+                shapeVector = new CrossVector(colour, isFilled, one, two);
                 break;
         }
 

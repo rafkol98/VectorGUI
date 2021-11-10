@@ -46,7 +46,6 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-
         for (ShapeVector shape : shapesList) {
             // Draw shape.
             drawShape(g, shape);
@@ -66,12 +65,13 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
         // Create shape depending on shape type.
         switch (shape.getType()) {
             case LINE:
-                // Set color to color selected.
+                System.out.println("LINE");
                 g.drawLine(((StraightLineVector) shape).getStart().x, ((StraightLineVector) shape).getStart().y, ((StraightLineVector) shape).getEnd().x, ((StraightLineVector) shape).getEnd().y);
                 break;
 
             case RECTANGLE:
             case SQUARE:
+                // Check if its filled.
                 if (shape.isFilled()) {
                     g.fillRect(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
                 } else {
@@ -80,11 +80,18 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                 break;
 
             case ELLIPSE:
+                // Check if its filled.
                 if (shape.isFilled()) {
                     g.fillOval(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
                 } else {
                     g.drawOval(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
                 }
+                break;
+
+            case CROSS:
+                System.out.println("CROSS");
+                g.drawLine(((CrossVector) shape).getStart().x, ((CrossVector) shape).getStart().y, ((CrossVector) shape).getEnd().x, ((CrossVector) shape).getEnd().y);
+                g.drawLine(((CrossVector) shape).getReverseStart().x, ((CrossVector) shape).getReverseStart().y, ((CrossVector) shape).getReverseEnd().x, ((CrossVector) shape).getReverseEnd().y);
                 break;
         }
 
