@@ -8,6 +8,13 @@ public class CrossVector extends ShapeVector{
 
     private Point start, end;
 
+    /**
+     * Creates a new diagonal cross vector.
+     * @param colour
+     * @param isFilled
+     * @param start
+     * @param end
+     */
     public CrossVector(Color colour, boolean isFilled, Point start, Point end) {
         super(colour, isFilled);
         this.start = start;
@@ -31,7 +38,7 @@ public class CrossVector extends ShapeVector{
     }
 
     /**
-     * Get starting point.
+     * Get reverse starting point - used for the mirrored diagonal line.
      * @return point.
      */
     public Point getReverseStart() {
@@ -42,7 +49,7 @@ public class CrossVector extends ShapeVector{
     }
 
     /**
-     * Get ending point.
+     * Get reverse ending point - used for the mirrored diagonal line.
      * @return point.
      */
     public Point getReverseEnd() {
@@ -52,6 +59,10 @@ public class CrossVector extends ShapeVector{
         return reverseEnd;
     }
 
+    /**
+     * Get type of the vector.
+     * @return
+     */
     @Override
     public String getType() {
         return Configuration.CROSS;

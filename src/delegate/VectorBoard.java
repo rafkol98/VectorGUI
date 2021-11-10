@@ -11,6 +11,7 @@ import java.awt.event.MouseMotionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import static main.Configuration.*;
 
@@ -19,7 +20,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
     private Model model;
     private String selectedShapeType;
 
-    private ArrayList<ShapeVector> shapesList;
+    private Stack<ShapeVector> shapesList;
 
     private Color color;
 
@@ -36,7 +37,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
         this.model.addObserver(this);
         this.color = Color.BLACK;
         this.selectedShapeType = LINE;
-        this.shapesList = new ArrayList<>();
+        this.shapesList = new Stack<>();
         isFilled = false;
     }
 
@@ -65,7 +66,6 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
         // Create shape depending on shape type.
         switch (shape.getType()) {
             case LINE:
-                System.out.println("LINE");
                 g.drawLine(((StraightLineVector) shape).getStart().x, ((StraightLineVector) shape).getStart().y, ((StraightLineVector) shape).getEnd().x, ((StraightLineVector) shape).getEnd().y);
                 break;
 
@@ -89,7 +89,6 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                 break;
 
             case CROSS:
-                System.out.println("CROSS");
                 g.drawLine(((CrossVector) shape).getStart().x, ((CrossVector) shape).getStart().y, ((CrossVector) shape).getEnd().x, ((CrossVector) shape).getEnd().y);
                 g.drawLine(((CrossVector) shape).getReverseStart().x, ((CrossVector) shape).getReverseStart().y, ((CrossVector) shape).getReverseEnd().x, ((CrossVector) shape).getReverseEnd().y);
                 break;
@@ -137,7 +136,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                 // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        shapesList = (ArrayList<ShapeVector>) evt.getNewValue();
+                        shapesList = (Stack<ShapeVector>) evt.getNewValue();
                         repaint();
                     }
                 });

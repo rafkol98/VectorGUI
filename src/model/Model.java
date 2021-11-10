@@ -6,6 +6,7 @@ import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import static main.Configuration.*;
 
@@ -16,7 +17,7 @@ public class Model implements ModelInterface{
     /** The change support object to help us fire change events at observers */
     private PropertyChangeSupport notifier;
 
-    private ArrayList<ShapeVector> shapes;
+    private Stack<ShapeVector> shapes;
     private Color color;
     private boolean hasFill;
 
@@ -26,7 +27,7 @@ public class Model implements ModelInterface{
      */
     public Model() {
         notifier = new PropertyChangeSupport(this);
-        shapes = new ArrayList<>();
+        shapes = new Stack<>();
         color = Color.BLACK;
         hasFill = false;
     }
@@ -88,7 +89,7 @@ public class Model implements ModelInterface{
     @Override
     public void createVector(String type, Color colour, boolean isFilled, Point one, Point two) {
 
-        ArrayList<ShapeVector> oldShapes = (ArrayList<ShapeVector>) shapes.clone();
+        Stack<ShapeVector> oldShapes = (Stack<ShapeVector>) shapes.clone();
         ShapeVector shapeVector = null;
 
         switch (type) {
@@ -115,7 +116,7 @@ public class Model implements ModelInterface{
 
         // if shapeVector is not null then add it to the shapes list and fire property change.
         if (shapeVector != null) {
-            shapes.add(shapeVector);
+            shapes.push(shapeVector);
             notifier.firePropertyChange("newShape", oldShapes, shapes);
         }
 
