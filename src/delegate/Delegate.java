@@ -49,7 +49,6 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         setupToolBar();
         pane.add(toolbar, BorderLayout.NORTH);
 
-        // TODO: replace with main GUI components
         //Make the center component big, since that's the
         //typical usage of BorderLayout.
         VectorBoard vectorBoard = new VectorBoard(model);
@@ -57,8 +56,6 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         pane.add(vectorBoard, BorderLayout.CENTER);
 
     }
-
-    //TODO: maybe toolbar in another class?
 
     /**
      * Set's up the toolbar.
@@ -143,14 +140,14 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         // Undo button.
         buttonUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                model.undo();
             }
         });
 
         // Redo button.
         buttonRedo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                model.redo();
             }
         });
 
@@ -191,8 +188,6 @@ public class Delegate extends JFrame implements PropertyChangeListener {
 
 
     }
-
-
 
     /**
      * The method is called when the model changes (i.e. when the model executes notifier.firePropertyChange)

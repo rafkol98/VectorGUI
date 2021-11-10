@@ -21,6 +21,9 @@ public class Model implements ModelInterface{
     private Color color;
     private boolean hasFill;
 
+    // Used to store the removed item from the stack.
+    private ShapeVector removed;
+
 
     /**
      * Create new Model. Setup the initial values.
@@ -125,11 +128,26 @@ public class Model implements ModelInterface{
     @Override
     public void undo() {
 
+        // Check if shapes stack is not empty.
+        if (!shapes.empty()) {
+            Stack<ShapeVector> oldShapes = (Stack<ShapeVector>) shapes.clone();
+            // Take out the last element of the stack and assign it to the removed variable.
+            removed = shapes.pop();
+            notifier.firePropertyChange("newShape", oldShapes, shapes);
+        }
     }
 
     @Override
     public void redo() {
-
+        // Check that removed has a shape initialised.
+        if (removed != null) {
+            Stack<ShapeVector> oldShapes = (Stack<ShapeVector>) shapes.clone();
+            // Push the removed shape back to the stack.
+            shapes.push(removed);
+            // Assign null to the removed ShapeVector.
+            removed = null;
+            notifier.firePropertyChange("newShape", oldShapes, shapes);
+        }
     }
 
     public boolean getHasFill() {
