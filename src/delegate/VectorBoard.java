@@ -83,6 +83,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                     break;
 
                 case ELLIPSE:
+                case CIRCLE:
                     // Check if its filled.
                     if (shape.getStart() != null && shape.getEnd() != null && ((TwoDimensionalShapeVector) shape).getWidth() > 0 && ((TwoDimensionalShapeVector) shape).getHeight() > 0) {
                         if (shape.isFilled()) {

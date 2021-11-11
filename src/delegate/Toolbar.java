@@ -6,6 +6,7 @@
 //import java.awt.*;
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
+//import java.util.Stack;
 //
 //import static main.Configuration.*;
 //
@@ -20,15 +21,6 @@
 //
 //    public Toolbar(Model model) {
 //        this.model = model;
-//        setupToolBar();
-//        revalidate();
-//    }
-//
-//
-//    /**
-//     * Set's up the toolbar.
-//     */
-//    private void setupToolBar() {
 //        // Initialise new toolbar.
 //        toolbar = new JToolBar();
 //
@@ -37,6 +29,8 @@
 //
 //        // add actions to the toolbar.
 //        addActionsToButtons();
+//
+//        System.out.println("executed");
 //    }
 //
 //    /**
@@ -49,8 +43,9 @@
 //        ImageIcon redoImgIcon = new ImageIcon(new ImageIcon("Icons/redo.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
 //        ImageIcon lineImgIcon = new ImageIcon(new ImageIcon("Icons/line.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
 //        ImageIcon rectangleImgIcon = new ImageIcon(new ImageIcon("Icons/rectangle.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+//        ImageIcon squareImgIcon = new ImageIcon(new ImageIcon("Icons/square.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
 //        ImageIcon ellipseImgIcon = new ImageIcon(new ImageIcon("Icons/ellipse.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-//        ImageIcon diagonalCrossImgIcon = new ImageIcon(new ImageIcon("Icons/diagonal_cross.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+//        ImageIcon diagonalCrossImgIcon = new ImageIcon(new ImageIcon("Icons/diagonal_cross.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
 //
 //        // Create colour and fill button.
 //        buttonColour = new JButton(colorImgIcon);
@@ -62,8 +57,8 @@
 //        // Create shapes buttons.
 //        buttonLine = new JButton(lineImgIcon);
 //        buttonRectangle = new JButton(rectangleImgIcon);
-//        //TODO: update this!
-//        buttonSquare = new JButton(rectangleImgIcon);
+//
+//        buttonSquare = new JButton(squareImgIcon);
 //        buttonEllipse = new JButton(ellipseImgIcon);
 //        buttonDiagonalCross = new JButton(diagonalCrossImgIcon);
 //
@@ -108,14 +103,14 @@
 //        // Undo button.
 //        buttonUndo.addActionListener(new ActionListener() {
 //            public void actionPerformed(ActionEvent e) {
-//
+//                model.undo();
 //            }
 //        });
 //
 //        // Redo button.
 //        buttonRedo.addActionListener(new ActionListener() {
 //            public void actionPerformed(ActionEvent e) {
-//
+//                model.redo();
 //            }
 //        });
 //
@@ -153,7 +148,6 @@
 //                model.selectShape(CROSS);
 //            }
 //        });
-//
 //
 //    }
 //

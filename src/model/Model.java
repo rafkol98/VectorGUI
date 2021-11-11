@@ -63,7 +63,7 @@ public class Model implements ModelInterface {
      */
     @Override
     public void selectShape(String selectedShape) {
-        if(selectedShape.equalsIgnoreCase(LINE) || selectedShape.equalsIgnoreCase(RECTANGLE) || selectedShape.equalsIgnoreCase(SQUARE) || selectedShape.equalsIgnoreCase(ELLIPSE) || selectedShape.equalsIgnoreCase(CROSS)) {
+        if(selectedShape.equalsIgnoreCase(LINE) || selectedShape.equalsIgnoreCase(RECTANGLE) || selectedShape.equalsIgnoreCase(SQUARE) || selectedShape.equalsIgnoreCase(ELLIPSE) || selectedShape.equalsIgnoreCase(CIRCLE) || selectedShape.equalsIgnoreCase(CROSS)) {
             // Make oldSelectedShape have the current value of currentSelectedShape
             String oldSelectedShape = currentSelectedShape;
             // Assign currentSelectedShape to be the new selectedShape passed in.
@@ -101,17 +101,19 @@ public class Model implements ModelInterface {
                 break;
 
             case RECTANGLE:
-                shapeVector = new RectangleVector(color, isFilled, one, two);
-                System.out.println(one.x +" "+one.y);
-                System.out.println(two.x +" "+two.y);
+                shapeVector = new RectangleVector(color, isFilled, one, two, false);
                 break;
 
             case SQUARE:
-                shapeVector = new SquareVector(color, isFilled, one, two);
+                shapeVector = new RectangleVector(color, isFilled, one, two, true);
                 break;
 
             case ELLIPSE:
-                shapeVector = new EllipseVector(color, isFilled, one, two);
+                shapeVector = new EllipseVector(color, isFilled, one, two, false);
+                break;
+
+            case CIRCLE:
+                shapeVector = new EllipseVector(color, isFilled, one, two, true);
                 break;
 
             case CROSS:

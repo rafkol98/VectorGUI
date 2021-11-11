@@ -19,7 +19,7 @@ public class Delegate extends JFrame implements PropertyChangeListener {
     private JFrame mainFrame;
 
     private JToolBar toolbar;
-    private JButton buttonColour, buttonFill, buttonUndo, buttonRedo, buttonLine, buttonRectangle, buttonSquare, buttonEllipse, buttonDiagonalCross;
+    private JButton buttonColour, buttonFill, buttonUndo, buttonRedo, buttonLine, buttonRectangle, buttonSquare, buttonEllipse, buttonCircle, buttonDiagonalCross;
     private JMenuBar menu;
 
     private final ImageIcon fillEmptyImgIcon = new ImageIcon(new ImageIcon("Icons/filling-empty.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
@@ -81,8 +81,10 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         ImageIcon redoImgIcon = new ImageIcon(new ImageIcon("Icons/redo.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
         ImageIcon lineImgIcon = new ImageIcon(new ImageIcon("Icons/line.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
         ImageIcon rectangleImgIcon = new ImageIcon(new ImageIcon("Icons/rectangle.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+        ImageIcon squareImgIcon = new ImageIcon(new ImageIcon("Icons/square.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         ImageIcon ellipseImgIcon = new ImageIcon(new ImageIcon("Icons/ellipse.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-        ImageIcon diagonalCrossImgIcon = new ImageIcon(new ImageIcon("Icons/diagonal_cross.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+        ImageIcon circleImgIcon = new ImageIcon(new ImageIcon("Icons/circle.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        ImageIcon diagonalCrossImgIcon = new ImageIcon(new ImageIcon("Icons/diagonal_cross.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
 
         // Create colour and fill button.
         buttonColour = new JButton(colorImgIcon);
@@ -94,9 +96,10 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         // Create shapes buttons.
         buttonLine = new JButton(lineImgIcon);
         buttonRectangle = new JButton(rectangleImgIcon);
-        //TODO: update this!
-        buttonSquare = new JButton(rectangleImgIcon);
+
+        buttonSquare = new JButton(squareImgIcon);
         buttonEllipse = new JButton(ellipseImgIcon);
+        buttonCircle= new JButton(circleImgIcon);
         buttonDiagonalCross = new JButton(diagonalCrossImgIcon);
 
         // add buttons to the toolbar
@@ -108,6 +111,7 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         toolbar.add(buttonRectangle);
         toolbar.add(buttonSquare);
         toolbar.add(buttonEllipse);
+        toolbar.add(buttonCircle);
         toolbar.add(buttonDiagonalCross);
     }
 
@@ -176,6 +180,13 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         buttonEllipse.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 model.selectShape(ELLIPSE);
+            }
+        });
+
+        // Draw new circle button.
+        buttonCircle.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                model.selectShape(CIRCLE);
             }
         });
 

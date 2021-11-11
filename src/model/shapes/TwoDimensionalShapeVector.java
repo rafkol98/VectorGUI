@@ -29,14 +29,6 @@ public abstract class TwoDimensionalShapeVector extends ShapeVector {
         return getEnd().x - getStart().x;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     @Override
     public abstract String getType();
 
