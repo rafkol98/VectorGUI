@@ -10,7 +10,7 @@ import java.util.Stack;
 
 import static main.Configuration.*;
 
-public class Model implements ModelInterface{
+public class Model implements ModelInterface {
 
     private String currentSelectedShape;
 
@@ -102,6 +102,8 @@ public class Model implements ModelInterface{
 
             case RECTANGLE:
                 shapeVector = new RectangleVector(color, isFilled, one, two);
+                System.out.println(one.x +" "+one.y);
+                System.out.println(two.x +" "+two.y);
                 break;
 
             case SQUARE:
@@ -127,7 +129,6 @@ public class Model implements ModelInterface{
 
     @Override
     public void undo() {
-
         // Check if shapes stack is not empty.
         if (!shapes.empty()) {
             Stack<ShapeVector> oldShapes = (Stack<ShapeVector>) shapes.clone();

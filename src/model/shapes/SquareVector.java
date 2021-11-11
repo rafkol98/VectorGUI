@@ -18,7 +18,6 @@ public class SquareVector extends TwoDimensionalShapeVector {
         super(colour, isFilled, one, two);
     }
 
-
     @Override
     public String getType() {
         return Configuration.SQUARE;

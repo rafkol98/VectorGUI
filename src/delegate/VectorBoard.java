@@ -5,9 +5,7 @@ import model.shapes.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -51,49 +49,58 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
             // Draw shape.
             drawShape(g, shape);
         }
-
     }
 
     /**
      * Draw shape depending on its type.
-     * @param g the graphics.
+     *
+     * @param g     the graphics.
      * @param shape the shape to be drawn.
      */
     private void drawShape(Graphics g, ShapeVector shape) {
         // Set color as the color of the current shape.
         g.setColor(shape.getColour());
 
-        // Create shape depending on shape type.
-        switch (shape.getType()) {
-            case LINE:
-                g.drawLine(((StraightLineVector) shape).getStart().x, ((StraightLineVector) shape).getStart().y, ((StraightLineVector) shape).getEnd().x, ((StraightLineVector) shape).getEnd().y);
-                break;
+        if (shape != null) {
+            // Create shape depending on shape type.
+            switch (shape.getType()) {
+                case LINE:
+                    if (shape.getStart() != null && shape.getEnd() != null) {
+                        g.drawLine(shape.getStart().x, shape.getStart().y, shape.getEnd().x, shape.getEnd().y);
+                    }
+                    break;
 
-            case RECTANGLE:
-            case SQUARE:
-                // Check if its filled.
-                if (shape.isFilled()) {
-                    g.fillRect(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
-                } else {
-                    g.drawRect(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
-                }
-                break;
+                case RECTANGLE:
+                case SQUARE:
+                    // Check if its filled.
+                    if (shape.getStart() != null && shape.getEnd() != null && ((TwoDimensionalShapeVector) shape).getWidth() > 0 && ((TwoDimensionalShapeVector) shape).getHeight() > 0) {
+                        if (shape.isFilled()) {
+                            g.fillRect(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
+                        } else {
+                            g.drawRect(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
+                        }
+                    }
+                    break;
 
-            case ELLIPSE:
-                // Check if its filled.
-                if (shape.isFilled()) {
-                    g.fillOval(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
-                } else {
-                    g.drawOval(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
-                }
-                break;
+                case ELLIPSE:
+                    // Check if its filled.
+                    if (shape.getStart() != null && shape.getEnd() != null && ((TwoDimensionalShapeVector) shape).getWidth() > 0 && ((TwoDimensionalShapeVector) shape).getHeight() > 0) {
+                        if (shape.isFilled()) {
+                            g.fillOval(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
+                        } else {
+                            g.drawOval(shape.getStart().x, shape.getStart().y, ((TwoDimensionalShapeVector) shape).getWidth(), ((TwoDimensionalShapeVector) shape).getHeight());
+                        }
+                    }
+                    break;
 
-            case CROSS:
-                g.drawLine(((CrossVector) shape).getStart().x, ((CrossVector) shape).getStart().y, ((CrossVector) shape).getEnd().x, ((CrossVector) shape).getEnd().y);
-                g.drawLine(((CrossVector) shape).getReverseStart().x, ((CrossVector) shape).getReverseStart().y, ((CrossVector) shape).getReverseEnd().x, ((CrossVector) shape).getReverseEnd().y);
-                break;
+                case CROSS:
+                    if (shape.getStart() != null && shape.getEnd() != null && ((CrossVector) shape).getReverseStart() != null && ((CrossVector) shape).getReverseStart() != null) {
+                        g.drawLine(shape.getStart().x, shape.getStart().y, shape.getEnd().x, shape.getEnd().y);
+                        g.drawLine(((CrossVector) shape).getReverseStart().x, ((CrossVector) shape).getReverseStart().y, ((CrossVector) shape).getReverseEnd().x, ((CrossVector) shape).getReverseEnd().y);
+                    }
+                    break;
+            }
         }
-
     }
 
     /**
@@ -178,6 +185,4 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
     public void mouseMoved(MouseEvent e) {
 
     }
-
-
 }

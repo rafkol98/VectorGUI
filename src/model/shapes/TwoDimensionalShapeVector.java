@@ -21,7 +21,6 @@ public abstract class TwoDimensionalShapeVector extends ShapeVector {
         super(colour, isFilled, one, two);
     }
 
-
     public int getHeight() {
         return getEnd().y - getStart().y;
     }
@@ -40,4 +39,6 @@ public abstract class TwoDimensionalShapeVector extends ShapeVector {
 
     @Override
     public abstract String getType();
+
+
 }

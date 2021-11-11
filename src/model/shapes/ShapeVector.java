@@ -2,7 +2,7 @@ package model.shapes;
 
 import java.awt.*;
 
-public abstract class ShapeVector {
+public abstract class ShapeVector implements ModelInterface {
 
     // Initialise shape variables.
     private Color colour;
@@ -94,4 +94,5 @@ public abstract class ShapeVector {
      * @return type of shape.
      */
     public abstract String getType();
+
 }
