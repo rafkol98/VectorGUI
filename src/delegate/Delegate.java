@@ -11,7 +11,11 @@ import java.beans.PropertyChangeListener;
 
 import static main.Configuration.*;
 
-public class Delegate extends JFrame implements PropertyChangeListener {
+/**
+ * The delegate class is responsible for handling the GUI aspect of the program.
+ * @author: 210017984
+ */
+public class Delegate extends JFrame {
 
     private static final int FRAME_HEIGHT = 800;
     private static final int FRAME_WIDTH = 1000;
@@ -27,32 +31,41 @@ public class Delegate extends JFrame implements PropertyChangeListener {
 
     private Model model;
 
+    /**
+     * Creates a new delegate class. Set's up the frame and displays the content.
+     * @param model the model used for the GUI.
+     */
     public Delegate(Model model) {
         this.model = model;
         setupFrame();
-
     }
 
+    /**
+     * Set's up the frame of the GUI.
+     */
     public void setupFrame() {
         this.mainFrame = new JFrame();
         mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //Set up the content pane.
+        //Add up all the different components to the content pane.
         addComponentsToPane(mainFrame.getContentPane());
         mainFrame.setVisible(true);
         mainFrame.setResizable(false);
     }
 
 
+    /**
+     * Adds all the different components to the content pane.
+     * @param pane the content pane of the main frame.
+     */
     public void addComponentsToPane(Container pane) {
-
+        // Setup and add toolbar.
         setupToolBar();
         pane.add(toolbar, BorderLayout.NORTH);
 
         //Make the center component big, since that's the
         //typical usage of BorderLayout.
         VectorBoard vectorBoard = new VectorBoard(model);
-        JButton button = new JButton("Button 2 (CENTER)");
         pane.add(vectorBoard, BorderLayout.CENTER);
 
     }
@@ -197,16 +210,6 @@ public class Delegate extends JFrame implements PropertyChangeListener {
             }
         });
 
-
-    }
-
-    /**
-     * The method is called when the model changes (i.e. when the model executes notifier.firePropertyChange)
-     *
-     * @param evt
-     */
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
 
     }
 

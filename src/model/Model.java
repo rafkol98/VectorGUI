@@ -10,6 +10,10 @@ import java.util.Stack;
 
 import static main.Configuration.*;
 
+/**
+ * The Model class does all the operations for the program.
+ * @author: 210017984
+ */
 public class Model implements ModelInterface {
 
     private String currentSelectedShape;
@@ -129,6 +133,10 @@ public class Model implements ModelInterface {
 
     }
 
+    /**
+     * The function is used to undo a recently done operation.
+     * E.g.: undo the drawing of an ellipse.
+     */
     @Override
     public void undo() {
         // Check if shapes stack is not empty.
@@ -140,6 +148,10 @@ public class Model implements ModelInterface {
         }
     }
 
+    /**
+     * The function is used to redo a recently undone operation.
+     * E.g.: Redo the drawing of an ellipse that was undone.
+     */
     @Override
     public void redo() {
         // Check that removed has a shape initialised.
@@ -153,6 +165,10 @@ public class Model implements ModelInterface {
         }
     }
 
+    /**
+     * Returns whether the items to be painted should have fill or not.
+     * @return if the item to be drawn should be filled.
+     */
     public boolean getHasFill() {
         return hasFill;
     }

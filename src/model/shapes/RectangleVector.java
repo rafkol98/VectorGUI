@@ -4,6 +4,11 @@ import main.Configuration;
 
 import java.awt.*;
 
+/**
+ *  The RectangleVector class is used to create rectangles. It extends the TwoDimensionalShapeVector
+ *  class as it shares similar characteristics with other two dimensional shapes.
+ *  @author: 210017984
+ */
 public class RectangleVector extends TwoDimensionalShapeVector {
 
     private boolean square;

@@ -4,6 +4,12 @@ import main.Configuration;
 
 import java.awt.*;
 
+/**
+ * The EllipseVector class has all the methods and behaviour for ellipse vectors that can be drawn
+ * in the GUI. It extends the two dimensional shape vector class since it has common behaviour with other
+ * two dimensional shape vectors.
+ * @author: 210017984
+ */
 public class EllipseVector extends TwoDimensionalShapeVector{
 
     private boolean circle;

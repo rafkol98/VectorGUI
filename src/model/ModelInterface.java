@@ -3,6 +3,10 @@ package model;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 
+/**
+ * The ModelInterface is used to initialise methods that the model should implement.
+ * @author: 210017984
+ */
 public interface ModelInterface {
 
     void addObserver(PropertyChangeListener listener);

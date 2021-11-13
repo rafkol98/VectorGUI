@@ -4,10 +4,12 @@ import main.Configuration;
 
 import java.awt.*;
 
+/**
+ *  The TwoDimensionalShapeVector class holds methods that all 2D shapes in this program share.
+ *  It extends the ShapeVector class.
+ *  @author: 210017984
+ */
 public abstract class TwoDimensionalShapeVector extends ShapeVector {
-
-
-    private int height, width;
 
     /**
      * Constructor for a new VectorShape.
@@ -21,14 +23,27 @@ public abstract class TwoDimensionalShapeVector extends ShapeVector {
         super(colour, isFilled, one, two);
     }
 
+    /**
+     * Calculates and returns the height of a 2D shape.
+     * @return height of shape.
+     */
     public int getHeight() {
         return getEnd().y - getStart().y;
     }
 
+    /**
+     * Calculates and returns the width of a 2D shape.
+     * @return width of shape.
+     */
     public int getWidth() {
         return getEnd().x - getStart().x;
     }
 
+    /**
+     * Abstract class that enforces the classes that extend TwoDimensionalShapeVector class
+     * to implement a method that returns the type of shape.
+     * @return type of shape.
+     */
     @Override
     public abstract String getType();
 

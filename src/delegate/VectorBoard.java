@@ -13,8 +13,13 @@ import java.util.Stack;
 
 import static main.Configuration.*;
 
+/**
+ * The VectorBoard class is used to create a board/panel where the user can draw shapes.
+ * @author: 210017984
+ */
 public class VectorBoard extends JPanel implements MouseListener, MouseMotionListener, PropertyChangeListener {
 
+    // Initialise variables.
     private Model model;
     private String selectedShapeType;
 
@@ -26,6 +31,10 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     Point start, end;
 
+    /**
+     * Creates a new board for the vectors to be drawn.
+     * @param model the model used.
+     */
     public VectorBoard(Model model) {
         this.model = model;
         addMouseListener(this);
@@ -39,12 +48,18 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
         isFilled = false;
     }
 
+    /**
+     * Adds all the components drawn by the user in the GUI.
+     * @param g allows to draw onto components.
+     */
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Set color of panel.
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
 
+        // Iterate through shapes.
         for (ShapeVector shape : shapesList) {
             // Draw shape.
             drawShape(g, shape);
@@ -153,35 +168,57 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {}
 
-    }
-
+    /**
+     * Called when the mouse is pressed.
+     * @param e the mouse event that caused the method to be called.
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         start = e.getPoint();
     }
 
+    /**
+     * Called when the mouse is dragged.
+     * @param e the mouse event that caused the method to be called.
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
         end = e.getPoint();
     }
 
+    /**
+     * Called when the mouse is released.
+     * @param e the mouse event that caused the method to be called.
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         model.createVector(selectedShapeType, color, isFilled, start, end);
     }
 
+    /**
+     * Called when the mouse is entered into the component.
+     * @param e the mouse event that caused the method to be called.
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
 
     }
 
+    /**
+     * Called when the mouse exited the component.
+     * @param e the mouse event that caused the method to be called.
+     */
     @Override
     public void mouseExited(MouseEvent e) {
 
     }
 
+    /**
+     * Called when the mouse is moved.
+     * @param e the mouse event that caused the method to be called.
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
 

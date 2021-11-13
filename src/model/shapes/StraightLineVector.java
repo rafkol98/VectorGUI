@@ -4,6 +4,10 @@ import main.Configuration;
 
 import java.awt.*;
 
+/**
+ *  The StraightLineVector class is used to create straight lines. It extends the ShapeVector basic class.
+ *  @author: 210017984
+ */
 public class StraightLineVector extends ShapeVector {
     
     // Points of the straight line.

@@ -3,6 +3,10 @@ package main;
 import delegate.Delegate;
 import model.Model;
 
+/**
+ * The VectorMain class is used to initialise the program.
+ * @author: 210017984
+ */
 public class VectorMain {
     public static void main(String[] args){
         Model model = new Model();
