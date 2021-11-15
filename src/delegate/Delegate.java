@@ -139,6 +139,7 @@ public class Delegate extends JFrame {
 
         // Set the slider
         slider = new JSlider(1, 20);
+        slider.setValue(1);
         slider.setMinorTickSpacing(1);
         slider.setPaintTicks(true);
 

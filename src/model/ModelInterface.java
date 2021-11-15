@@ -13,6 +13,8 @@ public interface ModelInterface {
 
     void changeColor(Color color);
 
+    void changeThickness(int thickness);
+
     void selectShape(String selectedShape);
 
     void createVector(String type, int thickness, Color colour, boolean isFilled, Point one, Point two);

@@ -36,11 +36,13 @@ public class Model implements ModelInterface {
     public Model() {
         notifier = new PropertyChangeSupport(this);
         shapes = new Stack<>();
+
+        // Default values.
         color = Color.BLACK;
+        currentSelectedShape = LINE;
         hasFill = false;
         thickness = 1;
     }
-
 
     /**
      * Add observer to the property change listener.
@@ -66,7 +68,7 @@ public class Model implements ModelInterface {
     /**
      * Changes thickness.
      */
-
+    @Override
     public void changeThickness(int thickness) {
         int oldThickness = this.thickness;
         // Set new color selected as color.
@@ -186,7 +188,19 @@ public class Model implements ModelInterface {
         return hasFill;
     }
 
+    public int getThickness() {
+        return thickness;
+    }
+
     public Color getColor() {
         return color;
+    }
+
+    public String getCurrentSelectedShape() {
+        return currentSelectedShape;
+    }
+
+    public Stack<ShapeVector> getShapes() {
+        return shapes;
     }
 }
