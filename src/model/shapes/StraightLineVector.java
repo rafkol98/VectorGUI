@@ -19,7 +19,7 @@ public class StraightLineVector extends ShapeVector {
      * @param colour   the colour that the shape will have. Uses the Java's Colour class.
      * @param isFilled if the shape is filled or not.
      */
-    public StraightLineVector(Color colour, int thickness,boolean isFilled, Point start, Point end) {
+    public StraightLineVector(Color colour, int thickness, boolean isFilled, Point start, Point end) {
         super(colour, thickness, isFilled);
         this.start = start;
         this.end = end;

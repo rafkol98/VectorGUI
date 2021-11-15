@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ModelTest {
     private static Model model;
-    private ArrayList<ShapeVector> shapeVectors;
     private Color color = Color.BLACK;
 
     @Test

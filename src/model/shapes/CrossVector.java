@@ -9,7 +9,7 @@ import java.awt.*;
  * in the GUI.
  * @author: 210017984
  */
-public class CrossVector extends ShapeVector{
+public class CrossVector extends ShapeVector {
 
     private Point start, end;
 
