@@ -3,11 +3,14 @@ package delegate;
 import model.Model;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Hashtable;
 
 import static main.Configuration.*;
 
@@ -24,6 +27,10 @@ public class Delegate extends JFrame {
 
     private JToolBar toolbar;
     private JButton buttonColour, buttonFill, buttonUndo, buttonRedo, buttonLine, buttonRectangle, buttonSquare, buttonEllipse, buttonCircle, buttonDiagonalCross;
+
+    private JSlider slider;
+    JLabel sliderStatus;
+
     private JMenuBar menu;
 
     private final ImageIcon fillEmptyImgIcon = new ImageIcon(new ImageIcon("Icons/filling-empty.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
@@ -126,6 +133,29 @@ public class Delegate extends JFrame {
         toolbar.add(buttonEllipse);
         toolbar.add(buttonCircle);
         toolbar.add(buttonDiagonalCross);
+
+        // Add status label to show the status of the slider
+        sliderStatus = new JLabel("     Thickness: ", JLabel.CENTER);
+
+        // Set the slider
+        slider = new JSlider(1, 20);
+        slider.setMinorTickSpacing(1);
+        slider.setPaintTicks(true);
+
+        // Set the labels to be painted on the slider
+        slider.setPaintLabels(true);
+
+        // Add positions label in the slider
+        Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
+        position.put(1, new JLabel("1"));
+        position.put(10, new JLabel("10"));
+        position.put(20, new JLabel("20"));
+
+        // Set the label to be drawn
+        slider.setLabelTable(position);
+
+        toolbar.add(sliderStatus);
+        toolbar.add(slider);
     }
 
     /**
@@ -210,6 +240,15 @@ public class Delegate extends JFrame {
             }
         });
 
+        // Add change listener to the thickness slider.
+        slider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                int thickness = ((JSlider)e.getSource()).getValue();
+                sliderStatus.setText("      Thickness: " + thickness);
+                // change thickness in the model.
+                model.changeThickness(thickness);
+            }
+        });
 
     }
 

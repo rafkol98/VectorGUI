@@ -23,6 +23,7 @@ public class Model implements ModelInterface {
 
     private Stack<ShapeVector> shapes;
     private Color color;
+    private int thickness;
     private boolean hasFill;
 
     // Used to store the removed item from the stack.
@@ -37,6 +38,7 @@ public class Model implements ModelInterface {
         shapes = new Stack<>();
         color = Color.BLACK;
         hasFill = false;
+        thickness = 1;
     }
 
 
@@ -59,6 +61,17 @@ public class Model implements ModelInterface {
         // Set new color selected as color.
         this.color = color;
         notifier.firePropertyChange("changeColor", oldColor, color);
+    }
+
+    /**
+     * Changes thickness.
+     */
+
+    public void changeThickness(int thickness) {
+        int oldThickness = this.thickness;
+        // Set new color selected as color.
+        this.thickness = thickness;
+        notifier.firePropertyChange("changeThickness", oldThickness, thickness);
     }
 
     /**
@@ -94,34 +107,34 @@ public class Model implements ModelInterface {
      * @param two the second point.
      */
     @Override
-    public void createVector(String type, Color colour, boolean isFilled, Point one, Point two) {
+    public void createVector(String type, int thickness, Color colour, boolean isFilled, Point one, Point two) {
 
         Stack<ShapeVector> oldShapes = (Stack<ShapeVector>) shapes.clone();
         ShapeVector shapeVector = null;
 
         switch (type) {
             case LINE:
-                shapeVector = new StraightLineVector(color, isFilled, one, two);
+                shapeVector = new StraightLineVector(color, thickness, isFilled, one, two);
                 break;
 
             case RECTANGLE:
-                shapeVector = new RectangleVector(color, isFilled, one, two, false);
+                shapeVector = new RectangleVector(color, thickness, isFilled, one, two, false);
                 break;
 
             case SQUARE:
-                shapeVector = new RectangleVector(color, isFilled, one, two, true);
+                shapeVector = new RectangleVector(color, thickness, isFilled, one, two, true);
                 break;
 
             case ELLIPSE:
-                shapeVector = new EllipseVector(color, isFilled, one, two, false);
+                shapeVector = new EllipseVector(color, thickness, isFilled, one, two, false);
                 break;
 
             case CIRCLE:
-                shapeVector = new EllipseVector(color, isFilled, one, two, true);
+                shapeVector = new EllipseVector(color, thickness, isFilled, one, two, true);
                 break;
 
             case CROSS:
-                shapeVector = new CrossVector(colour, isFilled, one, two);
+                shapeVector = new CrossVector(colour, thickness, isFilled, one, two);
                 break;
         }
 

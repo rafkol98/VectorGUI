@@ -20,8 +20,8 @@ public class CrossVector extends ShapeVector{
      * @param start the starting position of the cross vector.
      * @param end the ending position of the cross vector.
      */
-    public CrossVector(Color colour, boolean isFilled, Point start, Point end) {
-        super(colour, isFilled);
+    public CrossVector(Color colour, int thickness, boolean isFilled, Point start, Point end) {
+        super(colour, thickness, isFilled);
         this.start = start;
         this.end = end;
     }

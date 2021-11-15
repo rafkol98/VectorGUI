@@ -19,8 +19,8 @@ public abstract class TwoDimensionalShapeVector extends ShapeVector {
      * @param one the first point the user clicked.
      * @param two the second point the user dragged until.
      */
-    public TwoDimensionalShapeVector(Color colour, boolean isFilled, Point one, Point two) {
-        super(colour, isFilled, one, two);
+    public TwoDimensionalShapeVector(Color colour, int thickness, boolean isFilled, Point one, Point two) {
+        super(colour, thickness, isFilled, one, two);
     }
 
     /**

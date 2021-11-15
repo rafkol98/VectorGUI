@@ -21,8 +21,8 @@ public class RectangleVector extends TwoDimensionalShapeVector {
      * @param one
      * @param two
      */
-    public RectangleVector(Color colour, boolean isFilled, Point one, Point two, boolean square) {
-        super(colour, isFilled, one, two);
+    public RectangleVector(Color colour, int thickness, boolean isFilled, Point one, Point two, boolean square) {
+        super(colour, thickness, isFilled, one, two);
         this.square = square;
     }
 

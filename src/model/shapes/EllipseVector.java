@@ -21,8 +21,8 @@ public class EllipseVector extends TwoDimensionalShapeVector{
      * @param one      the first point the user clicked.
      * @param two      the second point the user dragged until.
      */
-    public EllipseVector(Color colour, boolean isFilled, Point one, Point two, boolean cirle) {
-        super(colour, isFilled, one, two);
+    public EllipseVector(Color colour, int thickness, boolean isFilled, Point one, Point two, boolean cirle) {
+        super(colour, thickness, isFilled, one, two);
         this.circle = cirle;
     }
 

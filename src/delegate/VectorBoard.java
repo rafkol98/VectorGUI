@@ -29,7 +29,9 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     boolean isFilled;
 
-    Point start, end;
+    private int thickness;
+
+    private Point start, end;
 
     /**
      * Creates a new board for the vectors to be drawn.
@@ -62,7 +64,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
         // Iterate through shapes.
         for (ShapeVector shape : shapesList) {
             // Draw shape.
-            drawShape(g, shape);
+            drawShape((Graphics2D) g, shape);
         }
     }
 
@@ -72,9 +74,10 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
      * @param g     the graphics.
      * @param shape the shape to be drawn.
      */
-    private void drawShape(Graphics g, ShapeVector shape) {
+    private void drawShape(Graphics2D g, ShapeVector shape) {
         // Set color as the color of the current shape.
         g.setColor(shape.getColour());
+        g.setStroke(new BasicStroke(shape.getThickness()));
 
         if (shape != null) {
             // Create shape depending on shape type.
@@ -155,6 +158,15 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                 });
             }
 
+            if (evt.getPropertyName().equals("changeThickness")) {
+                // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        thickness = (int) evt.getNewValue();
+                    }
+                });
+            }
+
             if (evt.getPropertyName().equals("newShape")) {
                 // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
                 SwingUtilities.invokeLater(new Runnable() {
@@ -194,7 +206,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
      */
     @Override
     public void mouseReleased(MouseEvent e) {
-        model.createVector(selectedShapeType, color, isFilled, start, end);
+        model.createVector(selectedShapeType, thickness, color, isFilled, start, end);
     }
 
     /**
