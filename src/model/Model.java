@@ -172,4 +172,8 @@ public class Model implements ModelInterface {
     public boolean getHasFill() {
         return hasFill;
     }
+
+    public Color getColor() {
+        return color;
+    }
 }
