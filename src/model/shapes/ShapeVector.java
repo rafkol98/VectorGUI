@@ -6,6 +6,8 @@ import java.io.Serializable;
 
 public abstract class ShapeVector implements ShapeInterface, Serializable {
 
+    private static final long serialVersionUID = 6529685098267757690L;
+
     // Initialise shape variables.
     private Color colour;
     private int thickness;

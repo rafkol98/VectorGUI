@@ -50,6 +50,8 @@ public class Delegate extends JFrame {
     private Model model;
     private SaveLoadBoard saveLoadBoard;
 
+    private VectorBoard vectorBoard;
+
     /**
      * Creates a new delegate class. Set's up the frame and displays the content.
      *
@@ -88,7 +90,7 @@ public class Delegate extends JFrame {
 
         //Make the center component big, since that's the
         //typical usage of BorderLayout.
-        VectorBoard vectorBoard = new VectorBoard(model);
+        vectorBoard = new VectorBoard(model);
         pane.add(vectorBoard, BorderLayout.CENTER);
 
     }
@@ -120,8 +122,12 @@ public class Delegate extends JFrame {
                         // Load board - model.
                         Model loaded = saveLoadBoard.loadBoard(file.toString());
                         if (loaded != null) {
+                            //TODO: LOADS BUT CANT ADD ANYTHING!
                             model = loaded;
-                            //TODO: load objects.
+                            vectorBoard.setModel(model);
+                            model.reloadVariables();
+                            vectorBoard.setShapesList(model.getShapes());
+                            vectorBoard.repaint();
                         }
                     } catch(IOException | ClassNotFoundException ex) {
                         // Show error message that the board could not be load.

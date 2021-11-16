@@ -234,4 +234,13 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
     public void mouseMoved(MouseEvent e) {
 
     }
+
+
+    public void setShapesList(Stack<ShapeVector> shapesList) {
+        this.shapesList = shapesList;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
 }

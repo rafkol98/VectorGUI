@@ -16,6 +16,8 @@ import static configuration.Configuration.*;
  */
 public class Model implements ModelInterface, Serializable {
 
+    private static final long serialVersionUID = 6529685098267757690L;
+
     private String currentSelectedShape;
 
     /** The change support object to help us fire change events at observers */
@@ -178,6 +180,21 @@ public class Model implements ModelInterface, Serializable {
             removed = null;
             notifier.firePropertyChange("newShape", oldShapes, shapes);
         }
+    }
+
+    public void reloadVariables() {
+        // Default values.
+        color = Color.BLACK;
+        currentSelectedShape = LINE;
+        hasFill = false;
+        thickness = 1;
+
+        notifier.firePropertyChange("changeColor", null, color);
+
+        notifier.firePropertyChange("changeThickness", null, thickness);
+        notifier.firePropertyChange("changeThickness", null, thickness);
+        notifier.firePropertyChange("selectedShape", null, currentSelectedShape);
+
     }
 
     /**
