@@ -34,8 +34,6 @@ public class Delegate extends JFrame {
     private JSlider slider;
     JLabel sliderStatus;
 
-    private JMenuBar menu;
-
     private final ImageIcon fillEmptyImgIcon = new ImageIcon(new ImageIcon("../Icons/filling-empty.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
 
 
@@ -90,7 +88,7 @@ public class Delegate extends JFrame {
         toolbar = new JToolBar();
 
         // add the buttons to the toolbar.
-        createToolBarButtons();
+        setupToolBarButtons();
 
         // add actions to the toolbar.
         addActionsToButtons();
@@ -99,64 +97,18 @@ public class Delegate extends JFrame {
     /**
      * Creates all the buttons for the toolbar in an appropriate fashion.
      */
-    private void createToolBarButtons() {
+    private void setupToolBarButtons() {
+        // Get beginning of path - depends on where you run the program (Terminal or IDE).
+        String beginningOfPath = getBeginningOfPath();
 
-        String beginningOfPath = checkFromWhereItWasRun();
+        // Initialise the GUI icons.
+        initialiseImageIcons(beginningOfPath);
 
-        imageIcons(beginningOfPath);
+        // Add the buttons to the toolbar. With their corresponding images.
+        addToolbarButtons();
 
-        // Create colour and fill button.
-        buttonColour = new JButton(colorImgIcon);
-        buttonFill = new JButton(fillEmptyImgIcon);
-
-        // Create undo and redo buttons.
-        buttonUndo = new JButton(undoImgIcon);
-        buttonRedo = new JButton(redoImgIcon);
-        // Create shapes buttons.
-        buttonLine = new JButton(lineImgIcon);
-        buttonRectangle = new JButton(rectangleImgIcon);
-
-        buttonSquare = new JButton(squareImgIcon);
-        buttonEllipse = new JButton(ellipseImgIcon);
-        buttonCircle = new JButton(circleImgIcon);
-        buttonDiagonalCross = new JButton(diagonalCrossImgIcon);
-
-        // add buttons to the toolbar
-        toolbar.add(buttonColour);
-        toolbar.add(buttonFill);
-        toolbar.add(buttonUndo);
-        toolbar.add(buttonRedo);
-        toolbar.add(buttonLine);
-        toolbar.add(buttonRectangle);
-        toolbar.add(buttonSquare);
-        toolbar.add(buttonEllipse);
-        toolbar.add(buttonCircle);
-        toolbar.add(buttonDiagonalCross);
-
-        // Add status label to show the status of the slider
-        sliderStatus = new JLabel("     Thickness: ", JLabel.CENTER);
-
-        // Set the slider
-        slider = new JSlider(1, 20);
-        slider.setValue(1);
-        slider.setMinorTickSpacing(1);
-        slider.setPaintTicks(true);
-
-        // Set the labels to be painted on the slider
-        slider.setPaintLabels(true);
-
-        // Add positions label in the slider
-        Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
-        position.put(1, new JLabel("1"));
-        position.put(10, new JLabel("10"));
-        position.put(20, new JLabel("20"));
-
-        // Set the label to be drawn
-        slider.setLabelTable(position);
-
-        toolbar.add(sliderStatus);
-        toolbar.add(slider);
-
+        // Setup the thickness slider.
+        setupThicknessSlider();
     }
 
     /**
@@ -265,7 +217,11 @@ public class Delegate extends JFrame {
         }
     }
 
-    private void imageIcons(String beginningOfPath) {
+    /**
+     * Initialises the image icons for the GUI.
+     * @param beginningOfPath the beginning of the path. It is very important to show the images appropriately.
+     */
+    private void initialiseImageIcons(String beginningOfPath) {
         try {
             // add icons to buttons.
             colorImgIcon = new ImageIcon(new ImageIcon(beginningOfPath + "Icons/color-circle.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
@@ -283,12 +239,83 @@ public class Delegate extends JFrame {
         }
     }
 
-    private String checkFromWhereItWasRun() {
+    /**
+     * Function that checks from where the file was run and adjusts the beginning of the path accordingly.
+     * If the file was run from a terminal then the relative path is different than when it is run from inside an IDE.
+     * @return the beginning of the path.
+     */
+    private String getBeginningOfPath() {
         File directory = new File("./");
         String path = directory.getAbsolutePath();
         String beginningPath = path.contains("src") ? "../" : "";
 
         return beginningPath;
     }
+
+    /**
+     * Adds all the toolbar buttons to the toolbar. Initialises appropriate icons to the buttons.
+     */
+    private void addToolbarButtons() {
+        // Create colour and fill button.
+        buttonColour = new JButton(colorImgIcon);
+        buttonFill = new JButton(fillEmptyImgIcon);
+
+        // Create undo and redo buttons.
+        buttonUndo = new JButton(undoImgIcon);
+        buttonRedo = new JButton(redoImgIcon);
+        // Create shapes buttons.
+        buttonLine = new JButton(lineImgIcon);
+        buttonRectangle = new JButton(rectangleImgIcon);
+
+        buttonSquare = new JButton(squareImgIcon);
+        buttonEllipse = new JButton(ellipseImgIcon);
+        buttonCircle = new JButton(circleImgIcon);
+        buttonDiagonalCross = new JButton(diagonalCrossImgIcon);
+
+        // add buttons to the toolbar
+        toolbar.add(buttonColour);
+        toolbar.add(buttonFill);
+        toolbar.add(buttonUndo);
+        toolbar.add(buttonRedo);
+        toolbar.add(buttonLine);
+        toolbar.add(buttonRectangle);
+        toolbar.add(buttonSquare);
+        toolbar.add(buttonEllipse);
+        toolbar.add(buttonCircle);
+        toolbar.add(buttonDiagonalCross);
+    }
+
+
+    /**
+     * Sets up the thickness slider that allows the user to select the thickness of the shapes.
+     */
+    private void setupThicknessSlider() {
+        // Add status label to show the status of the slider
+        sliderStatus = new JLabel("     Thickness: ", JLabel.CENTER);
+
+        // Set the slider
+        slider = new JSlider(1, 20);
+        slider.setValue(1);
+        slider.setMinorTickSpacing(1);
+        slider.setPaintTicks(true);
+
+        // Set the labels to be painted on the slider
+        slider.setPaintLabels(true);
+
+        // Add positions label in the slider
+        Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
+        position.put(1, new JLabel("1"));
+        position.put(10, new JLabel("10"));
+        position.put(20, new JLabel("20"));
+
+        // Set the label to be drawn
+        slider.setLabelTable(position);
+
+        // Add slider status and slider to the toolbar.
+        toolbar.add(sliderStatus);
+        toolbar.add(slider);
+    }
+
+
 
 }
