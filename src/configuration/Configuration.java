@@ -1,4 +1,4 @@
-package main;
+package configuration;
 
 /**
  * The Configuration class stores commonly used variables throughout the program.

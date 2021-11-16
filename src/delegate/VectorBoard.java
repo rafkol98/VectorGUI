@@ -8,10 +8,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.Stack;
 
-import static main.Configuration.*;
+import static configuration.Configuration.*;
 
 /**
  * The VectorBoard class is used to create a board/panel where the user can draw shapes.

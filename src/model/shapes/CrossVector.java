@@ -1,6 +1,6 @@
 package model.shapes;
 
-import main.Configuration;
+import configuration.Configuration;
 
 import java.awt.*;
 

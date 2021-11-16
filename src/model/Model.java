@@ -5,10 +5,9 @@ import model.shapes.*;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.Stack;
 
-import static main.Configuration.*;
+import static configuration.Configuration.*;
 
 /**
  * The Model class does all the operations for the program.

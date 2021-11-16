@@ -1,16 +1,11 @@
 package model;
 
-import main.Configuration;
+import configuration.Configuration;
 import model.shapes.EllipseVector;
-import model.shapes.ShapeVector;
 import model.shapes.StraightLineVector;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
