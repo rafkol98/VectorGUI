@@ -1,5 +1,6 @@
 package delegate;
 
+import SaveLoad.SaveLoadBoard;
 import model.Model;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.Hashtable;
 
 import static configuration.Configuration.*;
@@ -42,10 +44,11 @@ public class Delegate extends JFrame {
 
     // Slider.
     private JSlider slider;
-    JLabel sliderStatus;
+    private JLabel sliderStatus;
 
     // Model.
     private Model model;
+    private SaveLoadBoard saveLoadBoard;
 
     /**
      * Creates a new delegate class. Set's up the frame and displays the content.
@@ -90,24 +93,45 @@ public class Delegate extends JFrame {
 
     }
 
+    /**
+     * sets up File menu with save and load entries
+     */
     private void setupMenu(){
         menu = new JMenuBar();
+        menu.setBackground(Color.BLACK);
+        menu.setForeground(Color.WHITE);
+
         JMenu file = new JMenu ("File");
         JMenuItem load = new JMenuItem ("Load");
         JMenuItem save = new JMenuItem ("Save");
         file.add (load);
         file.add (save);
         menu.add (file);
+
+        saveLoadBoard = new SaveLoadBoard();
+
         load.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                // should call appropriate method in model class if you want it to do something useful
-                JOptionPane.showMessageDialog(mainFrame, "Ooops, Load not linked to model!");
+
+//                JOptionPane.showMessageDialog(mainFrame, "Ooops, Load not linked to model!");
             }
         });
         save.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                // should call appropriate method in model class if you want it to do something useful
-                JOptionPane.showMessageDialog(mainFrame, "Ooops, Save not linked to model!");
+                JFileChooser fc = new JFileChooser();
+                int returnVal = fc.showSaveDialog(null);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    try {
+                        saveLoadBoard.saveBoard(model, file.toString());
+                        JOptionPane.showMessageDialog(mainFrame, "Board saved successfully.");
+                    } catch(IOException ioe) {
+                        JOptionPane.showMessageDialog(mainFrame, "Could not save the board: " + ioe.getMessage());
+                        System.out.println(ioe.getMessage());
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(mainFrame, "Please make sure you select an appropriate location.");
+                }
             }
         });
         // add menubar to frame

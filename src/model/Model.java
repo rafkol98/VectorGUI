@@ -5,6 +5,7 @@ import model.shapes.*;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import java.util.Stack;
 
 import static configuration.Configuration.*;
@@ -13,7 +14,7 @@ import static configuration.Configuration.*;
  * The Model class does all the operations for the program.
  * @author: 210017984
  */
-public class Model implements ModelInterface {
+public class Model implements ModelInterface, Serializable {
 
     private String currentSelectedShape;
 
