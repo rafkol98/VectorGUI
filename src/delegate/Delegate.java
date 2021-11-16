@@ -96,40 +96,65 @@ public class Delegate extends JFrame {
     /**
      * sets up File menu with save and load entries
      */
-    private void setupMenu(){
+    private void setupMenu() {
         menu = new JMenuBar();
         menu.setBackground(Color.BLACK);
         menu.setForeground(Color.WHITE);
 
-        JMenu file = new JMenu ("File");
-        JMenuItem load = new JMenuItem ("Load");
-        JMenuItem save = new JMenuItem ("Save");
-        file.add (load);
-        file.add (save);
-        menu.add (file);
+        JMenu file = new JMenu("File");
+        JMenuItem load = new JMenuItem("Load");
+        JMenuItem save = new JMenuItem("Save");
+        file.add(load);
+        file.add(save);
+        menu.add(file);
 
         saveLoadBoard = new SaveLoadBoard();
 
-        load.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e) {
-
-//                JOptionPane.showMessageDialog(mainFrame, "Ooops, Load not linked to model!");
-            }
-        });
-        save.addActionListener(new ActionListener(){
+        load.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = new JFileChooser();
-                int returnVal = fc.showSaveDialog(null);
+                int returnVal = fc.showOpenDialog(fc);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File file = fc.getSelectedFile();
                     try {
+                        File file = fc.getSelectedFile();
+                        // Load board - model.
+                        Model loaded = saveLoadBoard.loadBoard(file.toString());
+                        if (loaded != null) {
+                            model = loaded;
+                            //TODO: load objects.
+                        }
+                    } catch(IOException | ClassNotFoundException ex) {
+                        // Show error message that the board could not be load.
+                        JOptionPane.showMessageDialog(mainFrame, "Could not load the board: " + ex.getMessage());
+                        System.out.println(ex.getMessage());
+                    }
+                }
+            }
+        });
+
+        // Save functionality. Saves an object to a file selected by the user.
+        save.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Open file chooser.
+                JFileChooser fc = new JFileChooser();
+                int returnVal = fc.showSaveDialog(null);
+                // Check if everything is ok with location selected.
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        // Get file.
+                        File file = fc.getSelectedFile();
+                        // Save board - model.
                         saveLoadBoard.saveBoard(model, file.toString());
+
+                        // Show message that it was saved successfully.
                         JOptionPane.showMessageDialog(mainFrame, "Board saved successfully.");
-                    } catch(IOException ioe) {
+                    } catch (IOException ioe) {
+                        // Show error message that the board could not be saved.
                         JOptionPane.showMessageDialog(mainFrame, "Could not save the board: " + ioe.getMessage());
                         System.out.println(ioe.getMessage());
                     }
                 } else {
+                    // Show error message that the user must select an appropriate location.
                     JOptionPane.showMessageDialog(mainFrame, "Please make sure you select an appropriate location.");
                 }
             }
@@ -277,6 +302,7 @@ public class Delegate extends JFrame {
 
     /**
      * Initialises the image icons for the GUI.
+     *
      * @param beginningOfPath the beginning of the path. It is very important to show the images appropriately.
      */
     private void initialiseImageIcons(String beginningOfPath) {
@@ -300,6 +326,7 @@ public class Delegate extends JFrame {
     /**
      * Function that checks from where the file was run and adjusts the beginning of the path accordingly.
      * If the file was run from a terminal then the relative path is different than when it is run from inside an IDE.
+     *
      * @return the beginning of the path.
      */
     private String getBeginningOfPath() {
