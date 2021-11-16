@@ -43,6 +43,17 @@ class ModelTest {
     }
 
     @Test
+    public void selectShapeWrong() {
+        // Initialise the model.
+        model = new Model();
+        // Select shape of model.
+        model.selectShape("wrong");
+        // Check that the color is a cross.
+
+    }
+
+
+    @Test
     public void changeFillValue() {
         // Initialise the model.
         model = new Model();

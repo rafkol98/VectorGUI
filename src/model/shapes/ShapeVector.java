@@ -52,6 +52,7 @@ public abstract class ShapeVector implements ShapeInterface {
             start.x = one.x;
             end.x = two.x;
         }
+
         if(one.y > two.y) {
             start.y =  two.y;
             end.y = one.y;

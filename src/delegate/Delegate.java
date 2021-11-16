@@ -16,6 +16,7 @@ import static main.Configuration.*;
 
 /**
  * The delegate class is responsible for handling the GUI aspect of the program.
+ *
  * @author: 210017984
  */
 public class Delegate extends JFrame {
@@ -40,6 +41,7 @@ public class Delegate extends JFrame {
 
     /**
      * Creates a new delegate class. Set's up the frame and displays the content.
+     *
      * @param model the model used for the GUI.
      */
     public Delegate(Model model) {
@@ -63,6 +65,7 @@ public class Delegate extends JFrame {
 
     /**
      * Adds all the different components to the content pane.
+     *
      * @param pane the content pane of the main frame.
      */
     public void addComponentsToPane(Container pane) {
@@ -95,68 +98,75 @@ public class Delegate extends JFrame {
      * Creates all the buttons for the toolbar in an appropriate fashion.
      */
     private void createToolBarButtons() {
-        // add icons to buttons.
-        ImageIcon colorImgIcon = new ImageIcon(new ImageIcon("Icons/color-circle.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-        ImageIcon undoImgIcon = new ImageIcon(new ImageIcon("Icons/undo.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-        ImageIcon redoImgIcon = new ImageIcon(new ImageIcon("Icons/redo.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-        ImageIcon lineImgIcon = new ImageIcon(new ImageIcon("Icons/line.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-        ImageIcon rectangleImgIcon = new ImageIcon(new ImageIcon("Icons/rectangle.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-        ImageIcon squareImgIcon = new ImageIcon(new ImageIcon("Icons/square.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-        ImageIcon ellipseImgIcon = new ImageIcon(new ImageIcon("Icons/ellipse.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-        ImageIcon circleImgIcon = new ImageIcon(new ImageIcon("Icons/circle.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-        ImageIcon diagonalCrossImgIcon = new ImageIcon(new ImageIcon("Icons/diagonal_cross.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+            try {
+                // add icons to buttons.
+                ImageIcon colorImgIcon = new ImageIcon(new ImageIcon("../Icons/color-circle.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+                ImageIcon undoImgIcon = new ImageIcon(new ImageIcon("../Icons/undo.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+                ImageIcon redoImgIcon = new ImageIcon(new ImageIcon("../Icons/redo.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+                ImageIcon lineImgIcon = new ImageIcon(new ImageIcon("../Icons/line.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+                ImageIcon rectangleImgIcon = new ImageIcon(new ImageIcon("../Icons/rectangle.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+                ImageIcon squareImgIcon = new ImageIcon(new ImageIcon("../Icons/square.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+                ImageIcon ellipseImgIcon = new ImageIcon(new ImageIcon("../Icons/ellipse.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+                ImageIcon circleImgIcon = new ImageIcon(new ImageIcon("../Icons/circle.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+                ImageIcon diagonalCrossImgIcon = new ImageIcon(new ImageIcon("../Icons/diagonal_cross.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
 
-        // Create colour and fill button.
-        buttonColour = new JButton(colorImgIcon);
-        buttonFill = new JButton(fillEmptyImgIcon);
+                // Create colour and fill button.
+                buttonColour = new JButton(colorImgIcon);
+                buttonFill = new JButton(fillEmptyImgIcon);
 
-        // Create undo and redo buttons.
-        buttonUndo = new JButton(undoImgIcon);
-        buttonRedo = new JButton(redoImgIcon);
-        // Create shapes buttons.
-        buttonLine = new JButton(lineImgIcon);
-        buttonRectangle = new JButton(rectangleImgIcon);
+                // Create undo and redo buttons.
+                buttonUndo = new JButton(undoImgIcon);
+                buttonRedo = new JButton(redoImgIcon);
+                // Create shapes buttons.
+                buttonLine = new JButton(lineImgIcon);
+                buttonRectangle = new JButton(rectangleImgIcon);
 
-        buttonSquare = new JButton(squareImgIcon);
-        buttonEllipse = new JButton(ellipseImgIcon);
-        buttonCircle= new JButton(circleImgIcon);
-        buttonDiagonalCross = new JButton(diagonalCrossImgIcon);
+                buttonSquare = new JButton(squareImgIcon);
+                buttonEllipse = new JButton(ellipseImgIcon);
+                buttonCircle = new JButton(circleImgIcon);
+                buttonDiagonalCross = new JButton(diagonalCrossImgIcon);
 
-        // add buttons to the toolbar
-        toolbar.add(buttonColour);
-        toolbar.add(buttonFill);
-        toolbar.add(buttonUndo);
-        toolbar.add(buttonRedo);
-        toolbar.add(buttonLine);
-        toolbar.add(buttonRectangle);
-        toolbar.add(buttonSquare);
-        toolbar.add(buttonEllipse);
-        toolbar.add(buttonCircle);
-        toolbar.add(buttonDiagonalCross);
+                // add buttons to the toolbar
+                toolbar.add(buttonColour);
+                toolbar.add(buttonFill);
+                toolbar.add(buttonUndo);
+                toolbar.add(buttonRedo);
+                toolbar.add(buttonLine);
+                toolbar.add(buttonRectangle);
+                toolbar.add(buttonSquare);
+                toolbar.add(buttonEllipse);
+                toolbar.add(buttonCircle);
+                toolbar.add(buttonDiagonalCross);
 
-        // Add status label to show the status of the slider
-        sliderStatus = new JLabel("     Thickness: ", JLabel.CENTER);
+                // Add status label to show the status of the slider
+                sliderStatus = new JLabel("     Thickness: ", JLabel.CENTER);
 
-        // Set the slider
-        slider = new JSlider(1, 20);
-        slider.setValue(1);
-        slider.setMinorTickSpacing(1);
-        slider.setPaintTicks(true);
+                // Set the slider
+                slider = new JSlider(1, 20);
+                slider.setValue(1);
+                slider.setMinorTickSpacing(1);
+                slider.setPaintTicks(true);
 
-        // Set the labels to be painted on the slider
-        slider.setPaintLabels(true);
+                // Set the labels to be painted on the slider
+                slider.setPaintLabels(true);
 
-        // Add positions label in the slider
-        Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
-        position.put(1, new JLabel("1"));
-        position.put(10, new JLabel("10"));
-        position.put(20, new JLabel("20"));
+                // Add positions label in the slider
+                Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
+                position.put(1, new JLabel("1"));
+                position.put(10, new JLabel("10"));
+                position.put(20, new JLabel("20"));
 
-        // Set the label to be drawn
-        slider.setLabelTable(position);
+                // Set the label to be drawn
+                slider.setLabelTable(position);
 
-        toolbar.add(sliderStatus);
-        toolbar.add(slider);
+                toolbar.add(sliderStatus);
+                toolbar.add(slider);
+
+            } catch (NullPointerException npe) {
+                JOptionPane.showMessageDialog(mainFrame, "There was problem with loading the icons.");
+                System.out.println(npe.getMessage());
+            }
+
     }
 
     /**
@@ -244,7 +254,7 @@ public class Delegate extends JFrame {
         // Add change listener to the thickness slider.
         slider.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                int thickness = ((JSlider)e.getSource()).getValue();
+                int thickness = ((JSlider) e.getSource()).getValue();
                 sliderStatus.setText("      Thickness: " + thickness);
                 // change thickness in the model.
                 model.changeThickness(thickness);
@@ -257,7 +267,7 @@ public class Delegate extends JFrame {
      * Updates fill button image depending on whether the user clicked on the fill button.
      */
     public void updateFillButtonImage() {
-        if (model.getHasFill()){
+        if (model.getHasFill()) {
             ImageIcon fillImgIcon = new ImageIcon(new ImageIcon("Icons/filling.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
             buttonFill.setIcon(fillImgIcon);
         } else {
