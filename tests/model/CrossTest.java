@@ -11,6 +11,9 @@ class CrossTest {
 
     CrossVector crossVector = new CrossVector(Color.RED, 10, true, new Point(50,10), new Point(15, 40));
 
+    /**
+     * Test that the getReverseStart method works properly.
+     */
     @Test
     public void getReverseStart() {
         assertNotNull(crossVector.getReverseStart());
@@ -18,6 +21,9 @@ class CrossTest {
         assertEquals(40, crossVector.getReverseStart().y);
     }
 
+    /**
+     * Test that the getReverseEnd method works properly.
+     */
     @Test
     public void getReverseEnd() {
         assertNotNull(crossVector.getReverseEnd());

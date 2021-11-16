@@ -1,9 +1,10 @@
 package model.shapes;
 
 import java.awt.*;
+import java.io.Serializable;
 
 
-public abstract class ShapeVector implements ShapeInterface {
+public abstract class ShapeVector implements ShapeInterface, Serializable {
 
     // Initialise shape variables.
     private Color colour;

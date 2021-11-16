@@ -19,24 +19,32 @@ import static configuration.Configuration.*;
  * @author: 210017984
  */
 public class Delegate extends JFrame {
-
-    private static final int FRAME_HEIGHT = 800;
-    private static final int FRAME_WIDTH = 1000;
-
+    // Frame.
     private JFrame mainFrame;
 
+    /**
+     * Height of the frame.
+     */
+    private static final int FRAME_HEIGHT = 800;
+
+    /**
+     * Width of the frame.
+     */
+    private static final int FRAME_WIDTH = 1000;
+
+    private JMenuBar menu;
+
+    // Toolbar buttons and images.
     private JToolBar toolbar;
     private JButton buttonColour, buttonFill, buttonUndo, buttonRedo, buttonLine, buttonRectangle, buttonSquare, buttonEllipse, buttonCircle, buttonDiagonalCross;
-
     private ImageIcon colorImgIcon, undoImgIcon, redoImgIcon, lineImgIcon, rectangleImgIcon, squareImgIcon, ellipseImgIcon, circleImgIcon, diagonalCrossImgIcon;
+    private final ImageIcon fillEmptyImgIcon = new ImageIcon(new ImageIcon("../Icons/filling-empty.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
 
-
+    // Slider.
     private JSlider slider;
     JLabel sliderStatus;
 
-    private final ImageIcon fillEmptyImgIcon = new ImageIcon(new ImageIcon("../Icons/filling-empty.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-
-
+    // Model.
     private Model model;
 
     /**
@@ -53,13 +61,14 @@ public class Delegate extends JFrame {
      * Set's up the frame of the GUI.
      */
     public void setupFrame() {
-        this.mainFrame = new JFrame();
+        mainFrame = new JFrame();
         mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Add up all the different components to the content pane.
         addComponentsToPane(mainFrame.getContentPane());
         mainFrame.setVisible(true);
         mainFrame.setResizable(false);
+        mainFrame.setJMenuBar(menu);
     }
 
 
@@ -69,6 +78,7 @@ public class Delegate extends JFrame {
      * @param pane the content pane of the main frame.
      */
     public void addComponentsToPane(Container pane) {
+        setupMenu();
         // Setup and add toolbar.
         setupToolBar();
         pane.add(toolbar, BorderLayout.NORTH);
@@ -78,6 +88,30 @@ public class Delegate extends JFrame {
         VectorBoard vectorBoard = new VectorBoard(model);
         pane.add(vectorBoard, BorderLayout.CENTER);
 
+    }
+
+    private void setupMenu(){
+        menu = new JMenuBar();
+        JMenu file = new JMenu ("File");
+        JMenuItem load = new JMenuItem ("Load");
+        JMenuItem save = new JMenuItem ("Save");
+        file.add (load);
+        file.add (save);
+        menu.add (file);
+        load.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                // should call appropriate method in model class if you want it to do something useful
+                JOptionPane.showMessageDialog(mainFrame, "Ooops, Load not linked to model!");
+            }
+        });
+        save.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                // should call appropriate method in model class if you want it to do something useful
+                JOptionPane.showMessageDialog(mainFrame, "Ooops, Save not linked to model!");
+            }
+        });
+        // add menubar to frame
+        mainFrame.setJMenuBar(menu);
     }
 
     /**
@@ -315,7 +349,5 @@ public class Delegate extends JFrame {
         toolbar.add(sliderStatus);
         toolbar.add(slider);
     }
-
-
 
 }
