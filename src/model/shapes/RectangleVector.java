@@ -26,7 +26,11 @@ public class RectangleVector extends TwoDimensionalShapeVector {
         this.square = square;
     }
 
-    //TODO: set might be more correct!
+    /**
+     * Get height of rectangle.
+     * If its square, then return width as height (have to be the same size).
+     * @return
+     */
     @Override
     public int getHeight() {
         // If the ellipse is circle then
@@ -37,7 +41,10 @@ public class RectangleVector extends TwoDimensionalShapeVector {
         }
     }
 
-
+    /**
+     * Returns the type of ellipse.
+     * @return type of ellipse.
+     */
     @Override
     public String getType() {
         return Configuration.RECTANGLE;

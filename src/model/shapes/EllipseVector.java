@@ -26,7 +26,11 @@ public class EllipseVector extends TwoDimensionalShapeVector{
         this.circle = cirle;
     }
 
-    //TODO: set might be more correct!
+    /**
+     * Returns height of the ellipse.
+     * If its a circle, then return width as height (have to be the same size).
+     * @return height of ellipse.
+     */
     @Override
     public int getHeight() {
         // If the ellipse is circle then
@@ -37,6 +41,10 @@ public class EllipseVector extends TwoDimensionalShapeVector{
         }
     }
 
+    /**
+     * Returns the type of ellipse.
+     * @return type of ellipse.
+     */
     @Override
     public String getType() {
         return Configuration.ELLIPSE;

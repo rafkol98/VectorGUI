@@ -9,8 +9,11 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Hashtable;
 
 import static configuration.Configuration.*;
@@ -21,6 +24,9 @@ import static configuration.Configuration.*;
  * @author: 210017984
  */
 public class Delegate extends JFrame {
+
+    private static final long serialVersionUID = 6529685098267757690L;
+
     // Frame.
     private JFrame mainFrame;
 
@@ -59,6 +65,7 @@ public class Delegate extends JFrame {
      */
     public Delegate(Model model) {
         this.model = model;
+//        this.model.addObserver(this);
         setupFrame();
     }
 
@@ -114,55 +121,14 @@ public class Delegate extends JFrame {
 
         load.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser();
-                int returnVal = fc.showOpenDialog(fc);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        File file = fc.getSelectedFile();
-                        // Load board - model.
-                        Model loaded = saveLoadBoard.loadBoard(file.toString());
-                        if (loaded != null) {
-                            //TODO: LOADS BUT CANT ADD ANYTHING!
-                            model = loaded;
-                            vectorBoard.setModel(model);
-                            model.reloadVariables();
-                            vectorBoard.setShapesList(model.getShapes());
-                            vectorBoard.repaint();
-                        }
-                    } catch(IOException | ClassNotFoundException ex) {
-                        // Show error message that the board could not be load.
-                        JOptionPane.showMessageDialog(mainFrame, "Could not load the board: " + ex.getMessage());
-                        System.out.println(ex.getMessage());
-                    }
-                }
+                loadState();
             }
         });
 
         // Save functionality. Saves an object to a file selected by the user.
         save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Open file chooser.
-                JFileChooser fc = new JFileChooser();
-                int returnVal = fc.showSaveDialog(null);
-                // Check if everything is ok with location selected.
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        // Get file.
-                        File file = fc.getSelectedFile();
-                        // Save board - model.
-                        saveLoadBoard.saveBoard(model, file.toString());
-
-                        // Show message that it was saved successfully.
-                        JOptionPane.showMessageDialog(mainFrame, "Board saved successfully.");
-                    } catch (IOException ioe) {
-                        // Show error message that the board could not be saved.
-                        JOptionPane.showMessageDialog(mainFrame, "Could not save the board: " + ioe.getMessage());
-                        System.out.println(ioe.getMessage());
-                    }
-                } else {
-                    // Show error message that the user must select an appropriate location.
-                    JOptionPane.showMessageDialog(mainFrame, "Please make sure you select an appropriate location.");
-                }
+                saveState();
             }
         });
         // add menubar to frame
@@ -204,6 +170,7 @@ public class Delegate extends JFrame {
      * Add an action to each of the buttons in the toolbar.
      */
     private void addActionsToButtons() {
+
         // Button Colour action - show color palette.
         buttonColour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -216,6 +183,7 @@ public class Delegate extends JFrame {
             }
         });
 
+        // Fill action button.
         buttonFill.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Called");
@@ -224,7 +192,6 @@ public class Delegate extends JFrame {
                 updateFillButtonImage();
             }
         });
-
 
         // Undo button.
         buttonUndo.addActionListener(new ActionListener() {
@@ -407,4 +374,89 @@ public class Delegate extends JFrame {
         toolbar.add(slider);
     }
 
+
+    /**
+     * Loads the state.
+     */
+    public void loadState() {
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(fc);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            try {
+                File file = fc.getSelectedFile();
+                // Load board - model.
+                Model loaded = saveLoadBoard.loadBoard(file.toString());
+                if (loaded != null) {
+                    //TODO: LOADS BUT CANT ADD ANYTHING!
+                    model = loaded;
+                    vectorBoard.setModel(model);
+                    model.reloadVariables(model.getShapes());
+                    vectorBoard.setShapesList(model.getShapes());
+                    vectorBoard.repaint();
+                }
+            } catch(IOException | ClassNotFoundException ex) {
+                // Show error message that the board could not be load.
+                JOptionPane.showMessageDialog(mainFrame, "Could not load the board: " + ex.getMessage());
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Save states of model.
+//     * @param state the state of the model to be saved.
+     */
+    public void saveState() {
+        // Open file chooser.
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showSaveDialog(null);
+        // Check if everything is ok with location selected.
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            try {
+                // Get file.
+                File file = fc.getSelectedFile();
+                // Save board - model.
+                saveLoadBoard.saveBoard(model, file.toString());
+
+                // Show message that it was saved successfully.
+                JOptionPane.showMessageDialog(mainFrame, "Board saved successfully.");
+            } catch (IOException ioe) {
+                // Show error message that the board could not be saved.
+                JOptionPane.showMessageDialog(mainFrame, "There was a problem: " + ioe.getMessage());
+                System.out.println(ioe.getMessage());
+            }
+        } else {
+            // Show error message that the user must select an appropriate location.
+            JOptionPane.showMessageDialog(mainFrame, "Please make sure you select an appropriate location.");
+        }
+    }
+
+
+//    /**
+//     * This method is called when the model fires the save or load properties.
+//     * @param evt the property change event.
+//     */
+//    @Override
+//    public void propertyChange(PropertyChangeEvent evt) {
+//        if (evt.getPropertyName().equals("save")) {
+//            // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
+//            SwingUtilities.invokeLater(new Runnable() {
+//                public void run() {
+//                    System.out.println("Empiken mesa");
+//                   Model state =  (Model) evt.getNewValue();
+//                   saveState(state);
+//                }
+//            });
+//        }
+//
+//        if (evt.getPropertyName().equals("load")) {
+//            // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
+//            SwingUtilities.invokeLater(new Runnable() {
+//                public void run() {
+//                    Model state =  (Model) evt.getNewValue();
+//                    loadState();
+//                }
+//            });
+//        }
+//    }
 }

@@ -11,6 +11,12 @@ import java.nio.file.Paths;
 
 public class SaveLoadBoard {
 
+    /**
+     * Saves the board.
+     * @param model
+     * @param filename
+     * @throws IOException
+     */
     public static void saveBoard(Model model, String filename) throws IOException {
         if (filename != null && filename.endsWith(".vectorboard")) {
             ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(filename)));
@@ -21,6 +27,13 @@ public class SaveLoadBoard {
         }
     }
 
+    /**
+     * Loads the board.
+     * @param filename
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static Model loadBoard(String filename) throws IOException, ClassNotFoundException {
         if (filename != null && filename.endsWith(".vectorboard")) {
             ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(Paths.get(filename)));

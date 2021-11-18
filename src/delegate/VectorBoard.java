@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.Serializable;
 import java.util.Stack;
 
 import static configuration.Configuration.*;
@@ -16,7 +17,9 @@ import static configuration.Configuration.*;
  * The VectorBoard class is used to create a board/panel where the user can draw shapes.
  * @author: 210017984
  */
-public class VectorBoard extends JPanel implements MouseListener, MouseMotionListener, PropertyChangeListener {
+public class VectorBoard extends JPanel implements MouseListener, MouseMotionListener, PropertyChangeListener, Serializable {
+
+    private static final long serialVersionUID = 6529685098267757690L;
 
     // Initialise variables.
     private Model model;
@@ -37,6 +40,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
      * @param model the model used.
      */
     public VectorBoard(Model model) {
+        System.out.println("vb neo");
         this.model = model;
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -56,6 +60,8 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        System.out.println("paint");
         // Set color of panel.
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
@@ -63,6 +69,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
         // Iterate through shapes.
         for (ShapeVector shape : shapesList) {
             // Draw shape.
+            System.out.println("paint for");
             drawShape((Graphics2D) g, shape);
         }
     }
@@ -83,6 +90,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
             switch (shape.getType()) {
                 case LINE:
                     if (shape.getStart() != null && shape.getEnd() != null) {
+                        System.out.println("paint draw line");
                         g.drawLine(shape.getStart().x, shape.getStart().y, shape.getEnd().x, shape.getEnd().y);
                     }
                     break;
@@ -235,12 +243,23 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     }
 
-
+    /**
+     * Sets the shape list.
+     * @param shapesList the shapes list for the shapesList to be updated to.
+     */
     public void setShapesList(Stack<ShapeVector> shapesList) {
         this.shapesList = shapesList;
     }
 
+    /**
+     * Sets the model.
+     * @param model the model to be updated to.
+     */
     public void setModel(Model model) {
         this.model = model;
+    }
+
+    public Model getModel() {
+        return model;
     }
 }

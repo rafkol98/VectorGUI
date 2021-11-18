@@ -182,7 +182,25 @@ public class Model implements ModelInterface, Serializable {
         }
     }
 
-    public void reloadVariables() {
+    /**
+     * Saves the state of the model.
+     */
+    public void saveState() {
+        notifier.firePropertyChange("save", null, this);
+    }
+
+    /**
+     * Loads the state of the model.
+     */
+    public void loadState() {
+        notifier.firePropertyChange("load", null, this);
+    }
+
+    /**
+     * Reloads the variables after the model is being loaded.
+     */
+    public void reloadVariables(Stack<ShapeVector> shapesList) {
+        System.out.println("Mesa");
         // Default values.
         color = Color.BLACK;
         currentSelectedShape = LINE;
@@ -190,11 +208,10 @@ public class Model implements ModelInterface, Serializable {
         thickness = 1;
 
         notifier.firePropertyChange("changeColor", null, color);
-
         notifier.firePropertyChange("changeThickness", null, thickness);
         notifier.firePropertyChange("changeThickness", null, thickness);
         notifier.firePropertyChange("selectedShape", null, currentSelectedShape);
-
+        notifier.firePropertyChange("newShape", null, shapesList);
     }
 
     /**
@@ -205,18 +222,34 @@ public class Model implements ModelInterface, Serializable {
         return hasFill;
     }
 
+    /**
+     * Gets current thickness selected.
+     * @return thickness selected.
+     */
     public int getThickness() {
         return thickness;
     }
 
+    /**
+     * Gets the current color selected.
+     * @return current color.
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * Gets current shape selected.
+     * @return shape selected.
+     */
     public String getCurrentSelectedShape() {
         return currentSelectedShape;
     }
 
+    /**
+     * Gets shapes of model.
+     * @return the shapes.
+     */
     public Stack<ShapeVector> getShapes() {
         return shapes;
     }
