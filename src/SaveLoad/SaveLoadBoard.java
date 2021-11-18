@@ -18,7 +18,6 @@ public class SaveLoadBoard implements Serializable {
      * @throws IOException
      */
     public static void saveBoard(Model model, String filename) throws IOException {
-        System.out.println("saveboard called");
         if (filename != null && filename.endsWith(".vectorboard")) {
             System.out.println("saveboard called inn");
             ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(filename)));

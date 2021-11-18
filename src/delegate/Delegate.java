@@ -112,10 +112,17 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         JMenu file = new JMenu("File");
         JMenuItem load = new JMenuItem("Load");
         JMenuItem save = new JMenuItem("Save");
+        JMenuItem clear = new JMenuItem("Clear");
+
+        // Add menu items to file.
         file.add(load);
         file.add(save);
+        file.add(clear);
+
+        // Add file to menu.
         menu.add(file);
 
+        // Create new save load board.
         saveLoadBoard = new SaveLoadBoard();
 
         load.addActionListener(new ActionListener() {
@@ -128,6 +135,13 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 model.saveState();
+            }
+        });
+
+        // Save functionality. Saves an object to a file selected by the user.
+        clear.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                model.clear();
             }
         });
 
@@ -379,7 +393,6 @@ public class Delegate extends JFrame implements PropertyChangeListener {
      * Loads the state.
      */
     public void loadState() {
-        System.out.println("mpeni mesa sto loadstate");
         JFileChooser fc = new JFileChooser();
         int returnVal = fc.showOpenDialog(fc);
         if (returnVal == JFileChooser.APPROVE_OPTION) {

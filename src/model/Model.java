@@ -182,6 +182,16 @@ public class Model implements ModelInterface, Serializable {
         }
     }
 
+
+    /**
+     * Clear the canvas.
+     */
+    public void clear() {
+        Stack<ShapeVector> oldShapes = (Stack<ShapeVector>) shapes.clone();
+        shapes.clear();
+        notifier.firePropertyChange("newShape", oldShapes, shapes);
+    }
+
     /**
      * Saves the state of the model.
      */
