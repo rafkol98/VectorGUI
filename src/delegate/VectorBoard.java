@@ -172,7 +172,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                 });
             }
 
-            if (evt.getPropertyName().equals("newShape")) {
+            if (evt.getPropertyName().equals("drawShapes")) {
                 // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {

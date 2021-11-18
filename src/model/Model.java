@@ -145,7 +145,7 @@ public class Model implements ModelInterface, Serializable {
         // if shapeVector is not null then add it to the shapes list and fire property change.
         if (shapeVector != null) {
             shapes.push(shapeVector);
-            notifier.firePropertyChange("newShape", oldShapes, shapes);
+            notifier.firePropertyChange("drawShapes", oldShapes, shapes);
         }
 
     }
@@ -161,7 +161,7 @@ public class Model implements ModelInterface, Serializable {
             Stack<ShapeVector> oldShapes = (Stack<ShapeVector>) shapes.clone();
             // Take out the last element of the stack and assign it to the removed variable.
             removed = shapes.pop();
-            notifier.firePropertyChange("newShape", oldShapes, shapes);
+            notifier.firePropertyChange("drawShapes", oldShapes, shapes);
         }
     }
 
@@ -178,7 +178,7 @@ public class Model implements ModelInterface, Serializable {
             shapes.push(removed);
             // Assign null to the removed ShapeVector.
             removed = null;
-            notifier.firePropertyChange("newShape", oldShapes, shapes);
+            notifier.firePropertyChange("drawShapes", oldShapes, shapes);
         }
     }
 
@@ -189,7 +189,7 @@ public class Model implements ModelInterface, Serializable {
     public void clear() {
         Stack<ShapeVector> oldShapes = (Stack<ShapeVector>) shapes.clone();
         shapes.clear();
-        notifier.firePropertyChange("newShape", oldShapes, shapes);
+        notifier.firePropertyChange("drawShapes", oldShapes, shapes);
     }
 
     /**
