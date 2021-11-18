@@ -214,6 +214,11 @@ public class Model implements ModelInterface, Serializable {
         notifier.firePropertyChange("newShape", null, shapesList);
     }
 
+    public void setShapesList(Stack<ShapeVector> shapesList) {
+        shapes = shapesList;
+    }
+
+
     /**
      * Returns whether the items to be painted should have fill or not.
      * @return if the item to be drawn should be filled.

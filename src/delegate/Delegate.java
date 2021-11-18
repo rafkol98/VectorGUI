@@ -387,12 +387,8 @@ public class Delegate extends JFrame {
                 // Load board - model.
                 Model loaded = saveLoadBoard.loadBoard(file.toString());
                 if (loaded != null) {
-                    //TODO: LOADS BUT CANT ADD ANYTHING!
-                    model = loaded;
-                    vectorBoard.setModel(model);
-                    model.reloadVariables(model.getShapes());
-                    vectorBoard.setShapesList(model.getShapes());
-                    vectorBoard.repaint();
+                    model.setShapesList(loaded.getShapes());
+                    vectorBoard.setShapesList(loaded.getShapes());
                 }
             } catch(IOException | ClassNotFoundException ex) {
                 // Show error message that the board could not be load.
