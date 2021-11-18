@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class SaveLoadBoard {
+public class SaveLoadBoard implements Serializable {
 
     /**
      * Saves the board.
@@ -18,7 +18,9 @@ public class SaveLoadBoard {
      * @throws IOException
      */
     public static void saveBoard(Model model, String filename) throws IOException {
+        System.out.println("saveboard called");
         if (filename != null && filename.endsWith(".vectorboard")) {
+            System.out.println("saveboard called inn");
             ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(filename)));
             oos.writeObject(model);
             oos.close();

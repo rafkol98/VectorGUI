@@ -61,7 +61,6 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        System.out.println("paint");
         // Set color of panel.
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
@@ -90,7 +89,6 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
             switch (shape.getType()) {
                 case LINE:
                     if (shape.getStart() != null && shape.getEnd() != null) {
-                        System.out.println("paint draw line");
                         g.drawLine(shape.getStart().x, shape.getStart().y, shape.getEnd().x, shape.getEnd().y);
                     }
                     break;

@@ -23,7 +23,7 @@ import static configuration.Configuration.*;
  *
  * @author: 210017984
  */
-public class Delegate extends JFrame {
+public class Delegate extends JFrame implements PropertyChangeListener {
 
     private static final long serialVersionUID = 6529685098267757690L;
 
@@ -46,7 +46,7 @@ public class Delegate extends JFrame {
     private JToolBar toolbar;
     private JButton buttonColour, buttonFill, buttonUndo, buttonRedo, buttonLine, buttonRectangle, buttonSquare, buttonEllipse, buttonCircle, buttonDiagonalCross;
     private ImageIcon colorImgIcon, undoImgIcon, redoImgIcon, lineImgIcon, rectangleImgIcon, squareImgIcon, ellipseImgIcon, circleImgIcon, diagonalCrossImgIcon;
-    private final ImageIcon fillEmptyImgIcon = new ImageIcon(new ImageIcon("../Icons/filling-empty.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+    private final ImageIcon fillEmptyImgIcon = new ImageIcon(new ImageIcon(getBeginningOfPath() + "Icons/filling-empty.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
 
     // Slider.
     private JSlider slider;
@@ -65,7 +65,6 @@ public class Delegate extends JFrame {
      */
     public Delegate(Model model) {
         this.model = model;
-//        this.model.addObserver(this);
         setupFrame();
     }
 
@@ -78,6 +77,7 @@ public class Delegate extends JFrame {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Add up all the different components to the content pane.
         addComponentsToPane(mainFrame.getContentPane());
+        this.model.addObserver(this);
         mainFrame.setVisible(true);
         mainFrame.setResizable(false);
         mainFrame.setJMenuBar(menu);
@@ -99,7 +99,6 @@ public class Delegate extends JFrame {
         //typical usage of BorderLayout.
         vectorBoard = new VectorBoard(model);
         pane.add(vectorBoard, BorderLayout.CENTER);
-
     }
 
     /**
@@ -121,16 +120,17 @@ public class Delegate extends JFrame {
 
         load.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                loadState();
+                model.loadState();
             }
         });
 
         // Save functionality. Saves an object to a file selected by the user.
         save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                saveState();
+                model.saveState();
             }
         });
+
         // add menubar to frame
         mainFrame.setJMenuBar(menu);
     }
@@ -379,6 +379,7 @@ public class Delegate extends JFrame {
      * Loads the state.
      */
     public void loadState() {
+        System.out.println("mpeni mesa sto loadstate");
         JFileChooser fc = new JFileChooser();
         int returnVal = fc.showOpenDialog(fc);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -400,7 +401,6 @@ public class Delegate extends JFrame {
 
     /**
      * Save states of model.
-//     * @param state the state of the model to be saved.
      */
     public void saveState() {
         // Open file chooser.
@@ -428,31 +428,24 @@ public class Delegate extends JFrame {
     }
 
 
-//    /**
-//     * This method is called when the model fires the save or load properties.
-//     * @param evt the property change event.
-//     */
-//    @Override
-//    public void propertyChange(PropertyChangeEvent evt) {
-//        if (evt.getPropertyName().equals("save")) {
-//            // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
-//            SwingUtilities.invokeLater(new Runnable() {
-//                public void run() {
-//                    System.out.println("Empiken mesa");
-//                   Model state =  (Model) evt.getNewValue();
-//                   saveState(state);
-//                }
-//            });
-//        }
-//
-//        if (evt.getPropertyName().equals("load")) {
-//            // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
-//            SwingUtilities.invokeLater(new Runnable() {
-//                public void run() {
-//                    Model state =  (Model) evt.getNewValue();
-//                    loadState();
-//                }
-//            });
-//        }
-//    }
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("save")) {
+            // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    saveState();
+                }
+            });
+        }
+
+        if (evt.getPropertyName().equals("load")) {
+            // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    loadState();
+                }
+            });
+        }
+    }
 }

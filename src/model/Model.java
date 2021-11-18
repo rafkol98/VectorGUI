@@ -186,33 +186,16 @@ public class Model implements ModelInterface, Serializable {
      * Saves the state of the model.
      */
     public void saveState() {
-        notifier.firePropertyChange("save", null, this);
+        notifier.firePropertyChange("save", null, null);
     }
 
     /**
      * Loads the state of the model.
      */
     public void loadState() {
-        notifier.firePropertyChange("load", null, this);
+        notifier.firePropertyChange("load", null, null);
     }
 
-    /**
-     * Reloads the variables after the model is being loaded.
-     */
-    public void reloadVariables(Stack<ShapeVector> shapesList) {
-        System.out.println("Mesa");
-        // Default values.
-        color = Color.BLACK;
-        currentSelectedShape = LINE;
-        hasFill = false;
-        thickness = 1;
-
-        notifier.firePropertyChange("changeColor", null, color);
-        notifier.firePropertyChange("changeThickness", null, thickness);
-        notifier.firePropertyChange("changeThickness", null, thickness);
-        notifier.firePropertyChange("selectedShape", null, currentSelectedShape);
-        notifier.firePropertyChange("newShape", null, shapesList);
-    }
 
     public void setShapesList(Stack<ShapeVector> shapesList) {
         shapes = shapesList;
