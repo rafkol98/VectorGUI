@@ -49,13 +49,16 @@ public abstract class ShapeVector implements ShapeInterface, Serializable {
 
         start = new Point();
         end = new Point();
-        calculateStartEnd();
+        // Calculate start and end points.
+        calculateStartingPoint();
+        calculateEndingPoint();
     }
 
+
     /**
-     * Calculates the start and end points of the shape.
+     * Calculates the starting point depending on from which direction the user drew the shapes.
      */
-    public void calculateStartEnd() {
+    public void calculateStartingPoint() {
         if(one.x > two.x) {
             start.x = two.x;
             end.x = one.x;
@@ -63,7 +66,12 @@ public abstract class ShapeVector implements ShapeInterface, Serializable {
             start.x = one.x;
             end.x = two.x;
         }
+    }
 
+    /**
+     * Calculates the ending point depending on from which direction the user drew the shapes.
+     */
+    public void calculateEndingPoint() {
         if(one.y > two.y) {
             start.y =  two.y;
             end.y = one.y;
@@ -114,5 +122,9 @@ public abstract class ShapeVector implements ShapeInterface, Serializable {
      * @return type of shape.
      */
     public abstract String getType();
+
+
+
+
 
 }

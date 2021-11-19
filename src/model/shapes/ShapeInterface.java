@@ -9,9 +9,14 @@ import java.awt.*;
 public interface ShapeInterface {
 
     /**
-     * Calculate start and end points.
+     * Calculates the starting point depending on from which direction the user drew the shapes.
      */
-    void calculateStartEnd();
+    void calculateStartingPoint();
+
+    /**
+     * Calculates the ending point depending on from which direction the user drew the shapes.
+     */
+    void calculateEndingPoint();
 
     /**
      * Gets starting point of shape.

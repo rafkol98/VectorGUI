@@ -19,8 +19,9 @@ public class RectangleVector extends TwoDimensionalShapeVector {
      * @param colour   the colour that the shape will have. Uses the Java's Colour class.
      * @param thickness the thickness of the vector.
      * @param isFilled if the shape is filled or not.
-     * @param one
-     * @param two
+     * @param one the first point of the rectangle
+     * @param two the second point of the rectangle.
+     * @param square if true then the shape is a square.
      */
     public RectangleVector(Color colour, int thickness, boolean isFilled, Point one, Point two, boolean square) {
         super(colour, thickness, isFilled, one, two);
@@ -30,7 +31,7 @@ public class RectangleVector extends TwoDimensionalShapeVector {
     /**
      * Get height of rectangle.
      * If its square, then return width as height (have to be the same size).
-     * @return
+     * @return height of rectangle.
      */
     @Override
     public int getHeight() {

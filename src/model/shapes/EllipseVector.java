@@ -21,6 +21,7 @@ public class EllipseVector extends TwoDimensionalShapeVector{
      * @param isFilled if the shape is filled or not.
      * @param one      the first point the user clicked.
      * @param two      the second point the user dragged until.
+     * @param cirle    if true then the shape is a circle.
      */
     public EllipseVector(Color colour, int thickness, boolean isFilled, Point one, Point two, boolean cirle) {
         super(colour, thickness, isFilled, one, two);
