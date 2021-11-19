@@ -31,6 +31,10 @@ public class Model implements ModelInterface, Serializable {
     // Used to store the removed item from the stack.
     private ShapeVector removed;
 
+    // List that saves the shapes that were removed using the undo action.
+    private Stack<ShapeVector> undoActions;
+
+
 
     /**
      * Create new Model. Setup the initial values.
@@ -38,6 +42,7 @@ public class Model implements ModelInterface, Serializable {
     public Model() {
         notifier = new PropertyChangeSupport(this);
         shapes = new Stack<>();
+        undoActions = new Stack<>();
 
         // Default values.
         color = Color.BLACK;
@@ -68,7 +73,7 @@ public class Model implements ModelInterface, Serializable {
     }
 
     /**
-     * Changes thickness.
+     * Changes selected thickness - used to make a shape to be drawn thicker or slimmer.
      */
     @Override
     public void changeThickness(int thickness) {
@@ -94,8 +99,9 @@ public class Model implements ModelInterface, Serializable {
     }
 
     /**
-     * Toggles hasFill value. If its false make it true and vice versa. Used to create shapes with or withouf filling.
+     * Toggles hasFill value. If its false make it true and vice versa. Used to create shapes with or without filling.
      */
+    @Override
     public void changeFillValue() {
         hasFill = !hasFill;
         System.out.println(hasFill);
@@ -109,6 +115,7 @@ public class Model implements ModelInterface, Serializable {
      * @param isFilled whether the vector should be filled.
      * @param one the first point.
      * @param two the second point.
+     * @param shift if the shift button was pressed while drawing the item.
      */
     @Override
     public void createVector(String type, int thickness, Color colour, boolean isFilled, Point one, Point two, boolean shift) {
@@ -165,7 +172,8 @@ public class Model implements ModelInterface, Serializable {
         if (!shapes.empty()) {
             Stack<ShapeVector> oldShapes = (Stack<ShapeVector>) shapes.clone();
             // Take out the last element of the stack and assign it to the removed variable.
-            removed = shapes.pop();
+            ShapeVector removed = shapes.pop();
+            undoActions.add(removed);
             notifier.firePropertyChange("drawShapes", oldShapes, shapes);
         }
     }
@@ -177,10 +185,12 @@ public class Model implements ModelInterface, Serializable {
     @Override
     public void redo() {
         // Check that removed has a shape initialised.
-        if (removed != null) {
+        if (undoActions.size() != 0) {
             Stack<ShapeVector> oldShapes = (Stack<ShapeVector>) shapes.clone();
+
+            ShapeVector reAddedShape = undoActions.pop();
             // Push the removed shape back to the stack.
-            shapes.push(removed);
+            shapes.push(reAddedShape);
             // Assign null to the removed ShapeVector.
             removed = null;
             notifier.firePropertyChange("drawShapes", oldShapes, shapes);
@@ -189,8 +199,9 @@ public class Model implements ModelInterface, Serializable {
 
 
     /**
-     * Clear the canvas.
+     * The funtion is used to clear the canvas (remove all the shapes).
      */
+    @Override
     public void clear() {
         Stack<ShapeVector> oldShapes = (Stack<ShapeVector>) shapes.clone();
         shapes.clear();
@@ -198,20 +209,27 @@ public class Model implements ModelInterface, Serializable {
     }
 
     /**
-     * Saves the state of the model.
+     * Fires property to save the current state of the model.
      */
+    @Override
     public void saveState() {
         notifier.firePropertyChange("save", null, null);
     }
 
     /**
-     * Loads the state of the model.
+     * Fires property to load a saved model.
      */
+    @Override
     public void loadState() {
         notifier.firePropertyChange("load", null, null);
     }
 
 
+    /**
+     * Setup shapes list. Used for when a new state is loaded to replace the current shapes
+     * with the ones loaded.
+     * @param shapesList
+     */
     public void setShapesList(Stack<ShapeVector> shapesList) {
         shapes = shapesList;
     }
