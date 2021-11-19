@@ -1,3 +1,5 @@
+package tests;
+
 import model.shapes.CrossVector;
 import model.shapes.EllipseVector;
 import model.shapes.RectangleVector;

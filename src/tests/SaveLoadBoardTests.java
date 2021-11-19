@@ -1,3 +1,5 @@
+package tests;
+
 import saveload.SaveLoadBoard;
 import model.Model;
 import org.junit.AfterClass;

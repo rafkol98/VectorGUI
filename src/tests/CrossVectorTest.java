@@ -1,3 +1,5 @@
+package tests;
+
 import model.shapes.CrossVector;
 import org.junit.Test;
 

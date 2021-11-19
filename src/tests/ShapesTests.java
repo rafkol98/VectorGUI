@@ -1,3 +1,5 @@
+package tests;
+
 import configuration.Configuration;
 import model.shapes.EllipseVector;
 import model.shapes.StraightLineVector;
