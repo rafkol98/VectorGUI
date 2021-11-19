@@ -17,19 +17,9 @@ public abstract class Configuration {
     public static final String RECTANGLE = "rectangle";
 
     /**
-     * Square type.
-     */
-    public static final String SQUARE = "square";
-
-    /**
      * Ellipse type.
      */
     public static final String ELLIPSE = "ellipse";
-
-    /**
-     * Circle type.
-     */
-    public static final String CIRCLE = "circle";
 
     /**
      * Cross type.

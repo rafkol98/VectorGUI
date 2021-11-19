@@ -1,6 +1,7 @@
 package model;
 
 import configuration.Configuration;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -11,10 +12,14 @@ class ModelTest {
     private static Model model;
     private Color color = Color.BLACK;
 
-    @Test
-    public void changeColor() {
+    @BeforeEach
+    public void setup() {
         // Initialise the model.
         model = new Model();
+    }
+
+    @Test
+    public void changeColor() {
         // Change color of model.
         model.changeColor(Color.pink);
 
@@ -26,8 +31,6 @@ class ModelTest {
 
     @Test
     public void selectShape() {
-        // Initialise the model.
-        model = new Model();
         // Select shape of model.
         model.selectShape(Configuration.CROSS);
         // Check that the color is not line.
@@ -36,21 +39,9 @@ class ModelTest {
         assertEquals(Configuration.CROSS, model.getCurrentSelectedShape());
     }
 
-    @Test
-    public void selectShapeWrong() {
-        // Initialise the model.
-        model = new Model();
-        // Select shape of model.
-        model.selectShape("wrong");
-        // Check that the color is a cross.
-
-    }
-
 
     @Test
     public void changeFillValue() {
-        // Initialise the model.
-        model = new Model();
         // Check if model has filling - it should return false.
         assertFalse(model.getHasFill());
         // change fill value.
@@ -72,8 +63,6 @@ class ModelTest {
 
     @Test
     public void createVector() {
-        // Initialise the model.
-        model = new Model();
         // Check that there are not shapes currently in the stack.
         assertEquals(0, model.getShapes().size());
         // Create a new vector.
@@ -84,8 +73,6 @@ class ModelTest {
 
     @Test
     public void undo() {
-        // Initialise the model.
-        model = new Model();
         model.createVector(Configuration.ELLIPSE, 5, Color.red, false, new Point(40,20), new Point(60, 10), true);
         // check that the new vector was added.
         assertEquals(1, model.getShapes().size());
@@ -97,8 +84,6 @@ class ModelTest {
 
     @Test
     public void redo() {
-        // Initialise the model.
-        model = new Model();
         // Create a new vector.
         model.createVector(Configuration.ELLIPSE, 5, Color.red, false, new Point(40,20), new Point(60, 10), true);
         // check that the new vector was added.

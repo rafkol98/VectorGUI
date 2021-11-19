@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CrossTest {
 
-    CrossVector crossVector = new CrossVector(Color.RED, 10, true, new Point(50,10), new Point(15, 40));
+    private CrossVector crossVector = new CrossVector(Color.RED, 10, true, new Point(50,10), new Point(15, 40));
 
     /**
      * Test that the getReverseStart method works properly.

@@ -10,8 +10,8 @@ import java.awt.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TwoDimensionalShapeTests {
-    RectangleVector squareVector = new RectangleVector(Color.BLUE, 5, false, new Point(10,10), new Point(50, 50), true);
-    EllipseVector ellipseVector = new EllipseVector(Color.RED, 10, true, new Point(50,10), new Point(15, 40), false);
+    private RectangleVector squareVector = new RectangleVector(Color.BLUE, 5, false, new Point(10,10), new Point(50, 50), true);
+    private EllipseVector ellipseVector = new EllipseVector(Color.RED, 10, true, new Point(50,10), new Point(15, 40), false);
 
     @Test
     public void getHeight() {

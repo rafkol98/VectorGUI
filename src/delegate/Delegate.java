@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Hashtable;
@@ -379,10 +380,10 @@ public class Delegate extends JFrame implements PropertyChangeListener, Serializ
                 File file = fc.getSelectedFile();
                 // Load board - model.
                 Model loaded = saveLoadBoard.loadBoard(file.toString());
-                if (loaded != null) {
-                    model.setShapesList(loaded.getShapes());
-                    vectorBoard.setShapesList(loaded.getShapes());
-                }
+                // if loaded file does not throw an exception, then load it to the current canvas/board.
+                model.setShapesList(loaded.getShapes());
+                vectorBoard.setShapesList(loaded.getShapes());
+
             } catch(IOException | ClassNotFoundException ex) {
                 // Show error message that the board could not be load.
                 JOptionPane.showMessageDialog(mainFrame, "Could not load the board: " + ex.getMessage());
@@ -425,6 +426,7 @@ public class Delegate extends JFrame implements PropertyChangeListener, Serializ
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        // if its save then save state of the current gui.
         if (evt.getPropertyName().equals("save")) {
             // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
             SwingUtilities.invokeLater(new Runnable() {
@@ -434,6 +436,7 @@ public class Delegate extends JFrame implements PropertyChangeListener, Serializ
             });
         }
 
+        // if its load then load a previously saved state.
         if (evt.getPropertyName().equals("load")) {
             // Tell the SwingUtilities thread to update the selectedShape in the GUI components.
             SwingUtilities.invokeLater(new Runnable() {

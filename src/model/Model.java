@@ -12,6 +12,7 @@ import static configuration.Configuration.*;
 
 /**
  * The Model class does all the operations for the program.
+ *
  * @author: 210017984
  */
 public class Model implements ModelInterface, Serializable {
@@ -20,7 +21,9 @@ public class Model implements ModelInterface, Serializable {
 
     private String currentSelectedShape;
 
-    /** The change support object to help us fire change events at observers */
+    /**
+     * The change support object to help us fire change events at observers
+     */
     private PropertyChangeSupport notifier;
 
     private Stack<ShapeVector> shapes;
@@ -33,7 +36,6 @@ public class Model implements ModelInterface, Serializable {
 
     // List that saves the shapes that were removed using the undo action.
     private Stack<ShapeVector> undoActions;
-
 
 
     /**
@@ -53,6 +55,7 @@ public class Model implements ModelInterface, Serializable {
 
     /**
      * Add observer to the property change listener.
+     *
      * @param listener A "PropertyChange" event gets fired whenever a bean changes a "bound" property.
      */
     @Override
@@ -62,6 +65,7 @@ public class Model implements ModelInterface, Serializable {
 
     /**
      * Changes color used.
+     *
      * @param color selected by the user.
      */
     @Override
@@ -85,17 +89,16 @@ public class Model implements ModelInterface, Serializable {
 
     /**
      * Selects shape to be created.
+     *
      * @param selectedShape the type of the selected shape.
      */
     @Override
     public void selectShape(String selectedShape) {
-        if(selectedShape.equalsIgnoreCase(LINE) || selectedShape.equalsIgnoreCase(RECTANGLE) || selectedShape.equalsIgnoreCase(ELLIPSE) || selectedShape.equalsIgnoreCase(CROSS)) {
-            // Make oldSelectedShape have the current value of currentSelectedShape
-            String oldSelectedShape = currentSelectedShape;
-            // Assign currentSelectedShape to be the new selectedShape passed in.
-            currentSelectedShape = selectedShape;
-            notifier.firePropertyChange("selectedShape", oldSelectedShape, currentSelectedShape);
-        }
+        // Make oldSelectedShape have the current value of currentSelectedShape
+        String oldSelectedShape = currentSelectedShape;
+        // Assign currentSelectedShape to be the new selectedShape passed in.
+        currentSelectedShape = selectedShape;
+        notifier.firePropertyChange("selectedShape", oldSelectedShape, currentSelectedShape);
     }
 
     /**
@@ -110,12 +113,13 @@ public class Model implements ModelInterface, Serializable {
 
     /**
      * Creates a vector based on the parameters passed in. This vector is then sent to an interface with firePropertyChange.
-     * @param type the type of vector.
-     * @param colour the colour of the vector to be created.
+     *
+     * @param type     the type of vector.
+     * @param colour   the colour of the vector to be created.
      * @param isFilled whether the vector should be filled.
-     * @param one the first point.
-     * @param two the second point.
-     * @param shift if the shift button was pressed while drawing the item.
+     * @param one      the first point.
+     * @param two      the second point.
+     * @param shift    if the shift button was pressed while drawing the item.
      */
     @Override
     public void createVector(String type, int thickness, Color colour, boolean isFilled, Point one, Point two, boolean shift) {
@@ -228,6 +232,7 @@ public class Model implements ModelInterface, Serializable {
     /**
      * Setup shapes list. Used for when a new state is loaded to replace the current shapes
      * with the ones loaded.
+     *
      * @param shapesList
      */
     public void setShapesList(Stack<ShapeVector> shapesList) {
@@ -237,6 +242,7 @@ public class Model implements ModelInterface, Serializable {
 
     /**
      * Returns whether the items to be painted should have fill or not.
+     *
      * @return if the item to be drawn should be filled.
      */
     public boolean getHasFill() {
@@ -245,6 +251,7 @@ public class Model implements ModelInterface, Serializable {
 
     /**
      * Gets current thickness selected.
+     *
      * @return thickness selected.
      */
     public int getThickness() {
@@ -253,6 +260,7 @@ public class Model implements ModelInterface, Serializable {
 
     /**
      * Gets the current color selected.
+     *
      * @return current color.
      */
     public Color getColor() {
@@ -261,6 +269,7 @@ public class Model implements ModelInterface, Serializable {
 
     /**
      * Gets current shape selected.
+     *
      * @return shape selected.
      */
     public String getCurrentSelectedShape() {
@@ -269,6 +278,7 @@ public class Model implements ModelInterface, Serializable {
 
     /**
      * Gets shapes of model.
+     *
      * @return the shapes.
      */
     public Stack<ShapeVector> getShapes() {

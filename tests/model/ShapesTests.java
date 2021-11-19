@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ShapesTests {
 
-    StraightLineVector straightLineVector = new StraightLineVector(Color.CYAN, 10, false, new Point(10,10), new Point(15, 40));
-    EllipseVector ellipseVector = new EllipseVector(Color.RED, 10, true, new Point(50,10), new Point(15, 40), false);
+    private StraightLineVector straightLineVector = new StraightLineVector(Color.CYAN, 10, false, new Point(10,10), new Point(15, 40));
+    private EllipseVector ellipseVector = new EllipseVector(Color.RED, 10, true, new Point(50,10), new Point(15, 40), false);
 
 
     /**
