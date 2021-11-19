@@ -270,7 +270,7 @@ public class Delegate extends JFrame implements PropertyChangeListener, Serializ
     private void updateFillButtonImage() {
         // if model has fill selected then show image with fill button.
         if (model.getHasFill()) {
-            ImageIcon fillImgIcon = new ImageIcon(new ImageIcon("Icons/filling.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+            ImageIcon fillImgIcon = new ImageIcon(new ImageIcon(getBeginningOfPath() + "Icons/filling.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
             buttonFill.setIcon(fillImgIcon);
         }
         // If model has fill = false then show empty fill image.
