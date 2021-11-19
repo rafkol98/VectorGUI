@@ -1,4 +1,4 @@
-package SaveLoad;
+package saveload;
 
 import model.Model;
 

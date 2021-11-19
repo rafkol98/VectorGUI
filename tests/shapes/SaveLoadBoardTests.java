@@ -1,18 +1,18 @@
-package model;
+package shapes;
 
+import saveload.SaveLoadBoard;
+import model.Model;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.Test;
 
-import SaveLoad.SaveLoadBoard;
-import configuration.Configuration;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-class SaveLoadBoardTests {
+public class SaveLoadBoardTests {
 
     private Model model;
     private String name;
@@ -20,24 +20,35 @@ class SaveLoadBoardTests {
     /**
      * Setup before each test.
      */
-    @BeforeEach
+    @Before
     public void setup() {
         model = new Model();
         name = "example.vectorboard";
     }
 
     /**
+     * After class delete the file created to test the saveboard fucntionality.
+     */
+    @AfterClass
+    public static void after() {
+        File file = new File("example.vectorboard");
+        // After checking that it successfully works, delete "example.vectorboard".
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
+    /**
      * Tests that the saveBoard throws an exception when the filename provided is not valid.
      * @throws IOException exception thrown by the method when filename is not valid.
      */
-    @Test
+
+    @Test(expected = IOException.class)
     public void testSaveBoardErrorCase() throws IOException {
         System.out.println("SaveLoadBoardTest - Testing changeFillValue");
         // Assert if an exception is thrown.
-        assertThrows(IOException.class,
-                () -> {
-                    SaveLoadBoard.saveBoard(model, "notAcceptedName");
-                });
+        SaveLoadBoard.saveBoard(model, "notAcceptedName");
+        fail("Exception must be thrown.");
     }
 
     /**
@@ -45,14 +56,12 @@ class SaveLoadBoardTests {
      * does not end with ".vectorboard".
      * @throws IOException exception thrown by the method when filename is not valid.
      */
-    @Test
+    @Test(expected = IOException.class)
     public void testSaveBoardErrorCaseDifferentEnding() throws IOException {
         System.out.println("SaveLoadBoardTest - Testing testSaveBoardErrorCaseDifferentEnding");
         // Assert if an exception is thrown.
-        assertThrows(IOException.class,
-                () -> {
-                    SaveLoadBoard.saveBoard(model, "name.vector");
-                });
+        SaveLoadBoard.saveBoard(model, "name.vector");
+        fail("Exception must be thrown.");
     }
 
 
@@ -72,10 +81,7 @@ class SaveLoadBoardTests {
         // Checks that the file now exists and that it was successfully saved.
         assertTrue(file.exists());
 
-        // After checking that it successfully works, delete "example.vectorboard".
-        if (file.exists()) {
-            file.delete();
-        }
+
 
     }
 
@@ -83,14 +89,12 @@ class SaveLoadBoardTests {
      * Tests that the loadBoard functionality throws an exception when trying to enter a not existing file.
      * @throws IOException exception thrown by the method when filename is not valid.
      */
-    @Test
-    public void testLoadBoardErrorCase() throws IOException {
+    @Test(expected = IOException.class)
+    public void testLoadBoardErrorCase() throws IOException, ClassNotFoundException {
         System.out.println("SaveLoadBoardTest - Testing testLoadBoardErrorCase");
         // Assert if an exception is thrown.
-        assertThrows(IOException.class,
-                () -> {
-                    SaveLoadBoard.loadBoard("notExistingFile.vectorboard");
-                });
+        SaveLoadBoard.loadBoard("notExistingFile.vectorboard");
+        fail("Exception must be thrown.");
     }
 
     /**
@@ -110,6 +114,5 @@ class SaveLoadBoardTests {
         // Checks that the loaded model and the original model have the same shapes.
         assertEquals(loaded.getShapes(), model.getShapes());
     }
-
 
 }

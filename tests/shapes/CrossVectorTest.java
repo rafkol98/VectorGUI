@@ -1,13 +1,13 @@
-package model;
+package shapes;
 
 import model.shapes.CrossVector;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class CrossTest {
+public class CrossVectorTest {
 
     private CrossVector crossVector = new CrossVector(Color.RED, 10, true, new Point(50,10), new Point(15, 40));
 
@@ -32,5 +32,4 @@ class CrossTest {
         assertEquals(15, crossVector.getReverseEnd().x);
         assertEquals(10, crossVector.getReverseEnd().y);
     }
-
 }

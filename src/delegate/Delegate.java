@@ -1,6 +1,6 @@
 package delegate;
 
-import SaveLoad.SaveLoadBoard;
+import saveload.SaveLoadBoard;
 import model.Model;
 
 import javax.swing.*;
@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Hashtable;

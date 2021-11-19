@@ -1,21 +1,21 @@
-package model;
-
+package shapes;
 import configuration.Configuration;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import model.Model;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class ModelTest {
+public class ModelTest {
     private static Model model;
     private Color color = Color.BLACK;
 
     /**
      * Setup before each test.
      */
-    @BeforeEach
+    @Before
     public void setup() {
         // Initialise the model.
         model = new Model();
