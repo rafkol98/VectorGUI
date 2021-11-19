@@ -15,6 +15,7 @@ import static configuration.Configuration.*;
 
 /**
  * The VectorBoard class is used to create a board/panel where the user can draw shapes.
+ *
  * @author: 210017984
  */
 public class VectorBoard extends JPanel implements MouseListener, MouseMotionListener, PropertyChangeListener, Serializable {
@@ -37,10 +38,10 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     /**
      * Creates a new board for the vectors to be drawn.
+     *
      * @param model the model used.
      */
     public VectorBoard(Model model) {
-        System.out.println("vb neo");
         this.model = model;
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -55,6 +56,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     /**
      * Adds all the components drawn by the user in the GUI.
+     *
      * @param g allows to draw onto components.
      */
     @Override
@@ -68,7 +70,6 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
         // Iterate through shapes.
         for (ShapeVector shape : shapesList) {
             // Draw shape.
-            System.out.println("paint for");
             drawShape((Graphics2D) g, shape);
         }
     }
@@ -94,7 +95,6 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                     break;
 
                 case RECTANGLE:
-                case SQUARE:
                     // Check if its filled.
                     if (shape.getStart() != null && shape.getEnd() != null && ((TwoDimensionalShapeVector) shape).getWidth() > 0 && ((TwoDimensionalShapeVector) shape).getHeight() > 0) {
                         if (shape.isFilled()) {
@@ -106,7 +106,6 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
                     break;
 
                 case ELLIPSE:
-                case CIRCLE:
                     // Check if its filled.
                     if (shape.getStart() != null && shape.getEnd() != null && ((TwoDimensionalShapeVector) shape).getWidth() > 0 && ((TwoDimensionalShapeVector) shape).getHeight() > 0) {
                         if (shape.isFilled()) {
@@ -185,10 +184,12 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+    }
 
     /**
      * Called when the mouse is pressed.
+     *
      * @param e the mouse event that caused the method to be called.
      */
     @Override
@@ -198,6 +199,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     /**
      * Called when the mouse is dragged.
+     *
      * @param e the mouse event that caused the method to be called.
      */
     @Override
@@ -207,15 +209,31 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     /**
      * Called when the mouse is released.
+     *
      * @param e the mouse event that caused the method to be called.
      */
     @Override
     public void mouseReleased(MouseEvent e) {
-        model.createVector(selectedShapeType, thickness, color, isFilled, start, end);
+        // Check if selected shape is rectangle or ellipse.
+        if (selectedShapeType == RECTANGLE || selectedShapeType == ELLIPSE) {
+            // if shift is down then create square or circle.
+            if (e.isShiftDown()) {
+                model.createVector(selectedShapeType, thickness, color, isFilled, start, end, true);
+            }
+            // if shift is not down then create rectangle or ellipse.
+            else {
+                model.createVector(selectedShapeType, thickness, color, isFilled, start, end, false);
+            }
+        }
+        // Create all other shapes.
+        else {
+            model.createVector(selectedShapeType, thickness, color, isFilled, start, end, false);
+        }
     }
 
     /**
      * Called when the mouse is entered into the component.
+     *
      * @param e the mouse event that caused the method to be called.
      */
     @Override
@@ -225,6 +243,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     /**
      * Called when the mouse exited the component.
+     *
      * @param e the mouse event that caused the method to be called.
      */
     @Override
@@ -234,6 +253,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     /**
      * Called when the mouse is moved.
+     *
      * @param e the mouse event that caused the method to be called.
      */
     @Override
@@ -243,6 +263,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     /**
      * Sets the shape list.
+     *
      * @param shapesList the shapes list for the shapesList to be updated to.
      */
     public void setShapesList(Stack<ShapeVector> shapesList) {
@@ -252,12 +273,18 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
 
     /**
      * Sets the model.
+     *
      * @param model the model to be updated to.
      */
     public void setModel(Model model) {
         this.model = model;
     }
 
+    /**
+     * Gets the model.
+     *
+     * @return the model.
+     */
     public Model getModel() {
         return model;
     }

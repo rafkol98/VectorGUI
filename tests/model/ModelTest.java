@@ -77,7 +77,7 @@ class ModelTest {
         // Check that there are not shapes currently in the stack.
         assertEquals(0, model.getShapes().size());
         // Create a new vector.
-        model.createVector(Configuration.LINE, 10, Color.blue, true, new Point(10,10), new Point(20, 20));
+        model.createVector(Configuration.LINE, 10, Color.blue, true, new Point(10,10), new Point(20, 20), false);
         // Check that the vector was added to the stack.
         assertEquals(1, model.getShapes().size());
     }
@@ -86,7 +86,7 @@ class ModelTest {
     public void undo() {
         // Initialise the model.
         model = new Model();
-        model.createVector(Configuration.CIRCLE, 5, Color.red, false, new Point(40,20), new Point(60, 10));
+        model.createVector(Configuration.ELLIPSE, 5, Color.red, false, new Point(40,20), new Point(60, 10), true);
         // check that the new vector was added.
         assertEquals(1, model.getShapes().size());
         // Undo action.
@@ -100,7 +100,7 @@ class ModelTest {
         // Initialise the model.
         model = new Model();
         // Create a new vector.
-        model.createVector(Configuration.CIRCLE, 5, Color.red, false, new Point(40,20), new Point(60, 10));
+        model.createVector(Configuration.ELLIPSE, 5, Color.red, false, new Point(40,20), new Point(60, 10), true);
         // check that the new vector was added.
         assertEquals(1, model.getShapes().size());
         // Undo action.

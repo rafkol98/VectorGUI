@@ -84,7 +84,7 @@ public class Model implements ModelInterface, Serializable {
      */
     @Override
     public void selectShape(String selectedShape) {
-        if(selectedShape.equalsIgnoreCase(LINE) || selectedShape.equalsIgnoreCase(RECTANGLE) || selectedShape.equalsIgnoreCase(SQUARE) || selectedShape.equalsIgnoreCase(ELLIPSE) || selectedShape.equalsIgnoreCase(CIRCLE) || selectedShape.equalsIgnoreCase(CROSS)) {
+        if(selectedShape.equalsIgnoreCase(LINE) || selectedShape.equalsIgnoreCase(RECTANGLE) || selectedShape.equalsIgnoreCase(ELLIPSE) || selectedShape.equalsIgnoreCase(CROSS)) {
             // Make oldSelectedShape have the current value of currentSelectedShape
             String oldSelectedShape = currentSelectedShape;
             // Assign currentSelectedShape to be the new selectedShape passed in.
@@ -111,7 +111,7 @@ public class Model implements ModelInterface, Serializable {
      * @param two the second point.
      */
     @Override
-    public void createVector(String type, int thickness, Color colour, boolean isFilled, Point one, Point two) {
+    public void createVector(String type, int thickness, Color colour, boolean isFilled, Point one, Point two, boolean shift) {
 
         Stack<ShapeVector> oldShapes = (Stack<ShapeVector>) shapes.clone();
         ShapeVector shapeVector = null;
@@ -122,19 +122,24 @@ public class Model implements ModelInterface, Serializable {
                 break;
 
             case RECTANGLE:
-                shapeVector = new RectangleVector(color, thickness, isFilled, one, two, false);
+                // if shift was pressed then create square.
+                if (shift) {
+                    shapeVector = new RectangleVector(color, thickness, isFilled, one, two, true);
+                } else {
+                    // Create square - due to the last flag set to true.
+                    shapeVector = new RectangleVector(color, thickness, isFilled, one, two, false);
+                }
                 break;
 
-            case SQUARE:
-                shapeVector = new RectangleVector(color, thickness, isFilled, one, two, true);
-                break;
 
             case ELLIPSE:
-                shapeVector = new EllipseVector(color, thickness, isFilled, one, two, false);
-                break;
-
-            case CIRCLE:
-                shapeVector = new EllipseVector(color, thickness, isFilled, one, two, true);
+                // If shift was pressed then create circle.
+                if (shift) {
+                    // Create circle - due to the last flag set to true.
+                    shapeVector = new EllipseVector(color, thickness, isFilled, one, two, true);
+                } else {
+                    shapeVector = new EllipseVector(color, thickness, isFilled, one, two, false);
+                }
                 break;
 
             case CROSS:

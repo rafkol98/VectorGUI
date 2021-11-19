@@ -23,7 +23,7 @@ import static configuration.Configuration.*;
  *
  * @author: 210017984
  */
-public class Delegate extends JFrame implements PropertyChangeListener {
+public class Delegate extends JFrame implements PropertyChangeListener, Serializable {
 
     private static final long serialVersionUID = 6529685098267757690L;
 
@@ -44,8 +44,8 @@ public class Delegate extends JFrame implements PropertyChangeListener {
 
     // Toolbar buttons and images.
     private JToolBar toolbar;
-    private JButton buttonColour, buttonFill, buttonUndo, buttonRedo, buttonLine, buttonRectangle, buttonSquare, buttonEllipse, buttonCircle, buttonDiagonalCross;
-    private ImageIcon colorImgIcon, undoImgIcon, redoImgIcon, lineImgIcon, rectangleImgIcon, squareImgIcon, ellipseImgIcon, circleImgIcon, diagonalCrossImgIcon;
+    private JButton buttonColour, buttonFill, buttonUndo, buttonRedo, buttonLine, buttonRectangle, buttonEllipse, buttonDiagonalCross;
+    private ImageIcon colorImgIcon, undoImgIcon, redoImgIcon, lineImgIcon, rectangleImgIcon, ellipseImgIcon, diagonalCrossImgIcon;
     private final ImageIcon fillEmptyImgIcon = new ImageIcon(new ImageIcon(getBeginningOfPath() + "Icons/filling-empty.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
 
     // Slider.
@@ -235,24 +235,10 @@ public class Delegate extends JFrame implements PropertyChangeListener {
             }
         });
 
-        // Draw new square button.
-        buttonSquare.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                model.selectShape(SQUARE);
-            }
-        });
-
         // Draw new ellipse button.
         buttonEllipse.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 model.selectShape(ELLIPSE);
-            }
-        });
-
-        // Draw new circle button.
-        buttonCircle.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                model.selectShape(CIRCLE);
             }
         });
 
@@ -300,9 +286,7 @@ public class Delegate extends JFrame implements PropertyChangeListener {
             redoImgIcon = new ImageIcon(new ImageIcon(beginningOfPath + "Icons/redo.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
             lineImgIcon = new ImageIcon(new ImageIcon(beginningOfPath + "Icons/line.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
             rectangleImgIcon = new ImageIcon(new ImageIcon(beginningOfPath + "Icons/rectangle.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-            squareImgIcon = new ImageIcon(new ImageIcon(beginningOfPath + "Icons/square.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
             ellipseImgIcon = new ImageIcon(new ImageIcon(beginningOfPath + "Icons/ellipse.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-            circleImgIcon = new ImageIcon(new ImageIcon(beginningOfPath + "Icons/circle.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
             diagonalCrossImgIcon = new ImageIcon(new ImageIcon(beginningOfPath + "Icons/diagonal_cross.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         } catch (NullPointerException npe) {
             JOptionPane.showMessageDialog(mainFrame, "There was problem with loading the icons.");
@@ -339,9 +323,7 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         buttonLine = new JButton(lineImgIcon);
         buttonRectangle = new JButton(rectangleImgIcon);
 
-        buttonSquare = new JButton(squareImgIcon);
         buttonEllipse = new JButton(ellipseImgIcon);
-        buttonCircle = new JButton(circleImgIcon);
         buttonDiagonalCross = new JButton(diagonalCrossImgIcon);
 
         // add buttons to the toolbar
@@ -351,9 +333,7 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         toolbar.add(buttonRedo);
         toolbar.add(buttonLine);
         toolbar.add(buttonRectangle);
-        toolbar.add(buttonSquare);
         toolbar.add(buttonEllipse);
-        toolbar.add(buttonCircle);
         toolbar.add(buttonDiagonalCross);
     }
 
@@ -387,7 +367,6 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         toolbar.add(sliderStatus);
         toolbar.add(slider);
     }
-
 
     /**
      * Loads the state.
@@ -440,7 +419,10 @@ public class Delegate extends JFrame implements PropertyChangeListener {
         }
     }
 
-
+    /**
+     * This method contains code to handle the cases when state is saved and load.
+     * @param evt
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("save")) {
