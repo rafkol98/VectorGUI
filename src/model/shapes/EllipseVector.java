@@ -17,6 +17,7 @@ public class EllipseVector extends TwoDimensionalShapeVector{
      * Constructor for a new EllipseVector.
      *
      * @param colour   the colour that the shape will have. Uses the Java's Colour class.
+     * @param thickness the thickness of the vector.
      * @param isFilled if the shape is filled or not.
      * @param one      the first point the user clicked.
      * @param two      the second point the user dragged until.
@@ -42,7 +43,7 @@ public class EllipseVector extends TwoDimensionalShapeVector{
     }
 
     /**
-     * Returns the type of ellipse.
+     * Returns the type of vector.
      * @return type of ellipse.
      */
     @Override

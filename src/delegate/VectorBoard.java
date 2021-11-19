@@ -20,6 +20,9 @@ import static configuration.Configuration.*;
  */
 public class VectorBoard extends JPanel implements MouseListener, MouseMotionListener, PropertyChangeListener, Serializable {
 
+    /**
+     * Serializable id.
+     */
     private static final long serialVersionUID = 6529685098267757690L;
 
     // Initialise variables.
@@ -130,7 +133,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
      * This method contains code to update the GUI view when the model changes.
      * The method is called when the model changes (i.e. when the model executes notifier.firePropertyChange)
      *
-     * @param evt
+     * @param evt the event that caused the property change.
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
@@ -183,6 +186,10 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
         }
     }
 
+    /**
+     * Called when the mouse is clicked.
+     * @param e the mouse event that caused the method to be called.
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
     }
@@ -194,6 +201,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
      */
     @Override
     public void mousePressed(MouseEvent e) {
+        // Initialise the starting point to the point pressed.
         start = e.getPoint();
     }
 
@@ -204,6 +212,7 @@ public class VectorBoard extends JPanel implements MouseListener, MouseMotionLis
      */
     @Override
     public void mouseDragged(MouseEvent e) {
+        // Update the end point as long as the mouse is dragged.
         end = e.getPoint();
     }
 

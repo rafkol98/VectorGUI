@@ -3,9 +3,15 @@ package model.shapes;
 import java.awt.*;
 import java.io.Serializable;
 
-
+/**
+ * The ShapeVector class has all methods that all shapes share.
+ * @author: 210017984
+ */
 public abstract class ShapeVector implements ShapeInterface, Serializable {
 
+    /**
+     * Serializable id.
+     */
     private static final long serialVersionUID = 6529685098267757690L;
 
     // Initialise shape variables.
@@ -17,6 +23,7 @@ public abstract class ShapeVector implements ShapeInterface, Serializable {
     /**
      * Constructor for a new VectorShape - used for line and cross vectors.
      * @param colour the colour that the shape will have. Uses the Java's Colour class.
+     * @param thickness the thickness of the vector.
      * @param isFilled if the shape is filled or not.
      */
     public ShapeVector(Color colour, int thickness, boolean isFilled) {
@@ -28,6 +35,7 @@ public abstract class ShapeVector implements ShapeInterface, Serializable {
     /**
      *  Constructor for a new VectorShape.
      * @param colour the colour that the shape will have. Uses the Java's Colour class.
+     * @param thickness the thickness of the vector.
      * @param isFilled if the shape is filled or not.
      * @param one the first point the user clicked.
      * @param two the second point the user dragged until.
@@ -102,7 +110,7 @@ public abstract class ShapeVector implements ShapeInterface, Serializable {
     }
 
     /**
-     * Get type of shape.
+     * Get type of vector.
      * @return type of shape.
      */
     public abstract String getType();

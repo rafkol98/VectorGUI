@@ -40,6 +40,7 @@ public interface ModelInterface {
     /**
      * Creates a vector based on the parameters passed in. This vector is then sent to an interface with firePropertyChange.
      * @param type the type of vector.
+     * @param thickness the thickness of the vector.
      * @param colour the colour of the vector to be created.
      * @param isFilled whether the vector should be filled.
      * @param one the first point.

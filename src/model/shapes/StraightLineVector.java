@@ -17,7 +17,10 @@ public class StraightLineVector extends ShapeVector {
      * Constructor for a new straight line.
      *
      * @param colour   the colour that the shape will have. Uses the Java's Colour class.
+     * @param thickness the thickness of the vector.
      * @param isFilled if the shape is filled or not.
+     * @param start the starting point.
+     * @param end the ending point.
      */
     public StraightLineVector(Color colour, int thickness, boolean isFilled, Point start, Point end) {
         super(colour, thickness, isFilled);
@@ -41,6 +44,10 @@ public class StraightLineVector extends ShapeVector {
         return end;
     }
 
+    /**
+     * Returns the type of vector.
+     * @return type of line.
+     */
     @Override
     public String getType() {
         return Configuration.LINE;

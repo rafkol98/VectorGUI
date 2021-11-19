@@ -13,6 +13,7 @@ public abstract class TwoDimensionalShapeVector extends ShapeVector {
      * Constructor for a new VectorShape.
      *
      * @param colour   the colour that the shape will have. Uses the Java's Colour class.
+     * @param thickness the thickness of the vector.
      * @param isFilled if the shape is filled or not.
      * @param one the first point the user clicked.
      * @param two the second point the user dragged until.

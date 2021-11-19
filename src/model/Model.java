@@ -21,9 +21,7 @@ public class Model implements ModelInterface, Serializable {
 
     private String currentSelectedShape;
 
-    /**
-     * The change support object to help us fire change events at observers
-     */
+    // The change support object to help us fire change events at observers
     private PropertyChangeSupport notifier;
 
     private Stack<ShapeVector> shapes;
@@ -232,7 +230,7 @@ public class Model implements ModelInterface, Serializable {
      * Setup shapes list. Used for when a new state is loaded to replace the current shapes
      * with the ones loaded.
      *
-     * @param shapesList
+     * @param shapesList the shape list passed in to replace current shapes in model.
      */
     public void setShapesList(Stack<ShapeVector> shapesList) {
         shapes = shapesList;

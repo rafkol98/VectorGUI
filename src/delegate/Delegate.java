@@ -25,6 +25,9 @@ import static configuration.Configuration.*;
  */
 public class Delegate extends JFrame implements PropertyChangeListener, Serializable {
 
+    /**
+     * Serializable id.
+     */
     private static final long serialVersionUID = 6529685098267757690L;
 
     // Frame.
@@ -265,10 +268,13 @@ public class Delegate extends JFrame implements PropertyChangeListener, Serializ
      * Updates fill button image depending on whether the user clicked on the fill button.
      */
     private void updateFillButtonImage() {
+        // if model has fill selected then show image with fill button.
         if (model.getHasFill()) {
             ImageIcon fillImgIcon = new ImageIcon(new ImageIcon("Icons/filling.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
             buttonFill.setIcon(fillImgIcon);
-        } else {
+        }
+        // If model has fill = false then show empty fill image.
+        else {
             buttonFill.setIcon(fillEmptyImgIcon);
         }
     }
@@ -421,7 +427,7 @@ public class Delegate extends JFrame implements PropertyChangeListener, Serializ
 
     /**
      * This method contains code to handle the cases when state is saved and load.
-     * @param evt
+     * @param evt the event that caused the property change.
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

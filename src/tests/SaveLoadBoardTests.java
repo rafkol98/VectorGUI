@@ -12,8 +12,13 @@ import java.io.IOException;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Checks that the load and save functions inside the model behave properly.
+ * @author: 210017984
+ */
 public class SaveLoadBoardTests {
 
+    // Initialise variables.
     private Model model;
     private String name;
 

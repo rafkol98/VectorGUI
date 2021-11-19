@@ -10,8 +10,13 @@ import java.awt.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * Checks that the functions for shapes behave properly.
+ * @author: 210017984
+ */
 public class ShapesTests {
 
+    // Initialise variables.
     private StraightLineVector straightLineVector = new StraightLineVector(Color.CYAN, 10, false, new Point(10,10), new Point(15, 40));
     private EllipseVector ellipseVector = new EllipseVector(Color.RED, 10, true, new Point(50,10), new Point(15, 40), false);
 
@@ -101,6 +106,18 @@ public class ShapesTests {
 
         assertNotNull(ellipseVector.getColour());
         assertEquals(Configuration.ELLIPSE , ellipseVector.getType());
+    }
+
+    /**
+     * Test a case that a shape is added at the edge.
+     */
+    @Test
+    public void testEdgeCase() {
+        StraightLineVector straightLineVector = new StraightLineVector(Color.CYAN, 10, false, new Point(700,10), new Point(900, 40));
+        int length = straightLineVector.getEnd().x - straightLineVector.getStart().x;
+
+        //Check that the line length is not cut on the border.
+        assertEquals(200, length);
     }
 
 }

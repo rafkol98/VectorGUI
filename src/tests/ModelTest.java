@@ -9,7 +9,13 @@ import java.awt.*;
 
 import static org.junit.Assert.*;
 
+/**
+ * Checks that all the functions inside the model behave properly.
+ * @author: 210017984
+ */
 public class ModelTest {
+
+    // Initialise variables.
     private static Model model;
     private Color color = Color.BLACK;
 
@@ -128,6 +134,22 @@ public class ModelTest {
         model.redo();
         // Check that the shape was readded due to the redo.
         assertEquals(1, model.getShapes().size());
+    }
+
+    @Test
+    public void clear() {
+        // Add two shapes.
+        model.createVector(Configuration.ELLIPSE, 5, Color.red, false, new Point(40,20), new Point(60, 10), false);
+        model.createVector(Configuration.RECTANGLE, 10, Color.red, false, new Point(20,80), new Point(50, 20), true);
+
+        // Check that the get shapes returns 2.
+        assertEquals(2, model.getShapes().size());
+
+        // Clear board.
+        model.clear();
+
+        // Check that the get shapes returns 0 as the board was cleared.
+        assertEquals(0, model.getShapes().size());
     }
 
 }

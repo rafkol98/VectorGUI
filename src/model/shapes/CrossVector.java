@@ -11,11 +11,13 @@ import java.awt.*;
  */
 public class CrossVector extends ShapeVector {
 
+    // Initialise start and end points.
     private Point start, end;
 
     /**
      * Creates a new diagonal cross vector.
      * @param colour the colour of the cross vector.
+     * @param thickness the thickness of the vector.
      * @param isFilled whether the cross vector is filled.
      * @param start the starting position of the cross vector.
      * @param end the ending position of the cross vector.
@@ -66,7 +68,7 @@ public class CrossVector extends ShapeVector {
 
     /**
      * Get type of the vector.
-     * @return
+     * @return type of cross.
      */
     @Override
     public String getType() {

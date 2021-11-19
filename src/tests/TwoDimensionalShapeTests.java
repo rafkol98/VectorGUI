@@ -10,7 +10,13 @@ import java.awt.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * Checks that the functions specific for two dimensional shapes behave correctly.
+ * @author: 210017984
+ */
 public class TwoDimensionalShapeTests {
+
+    // Initialise variables.
     private RectangleVector squareVector = new RectangleVector(Color.BLUE, 5, false, new Point(10,10), new Point(50, 50), true);
     private EllipseVector ellipseVector = new EllipseVector(Color.RED, 10, true, new Point(50,10), new Point(15, 40), false);
 
