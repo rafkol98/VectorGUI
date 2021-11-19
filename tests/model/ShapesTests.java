@@ -29,6 +29,7 @@ class ShapesTests {
      */
     @Test
     public void getStart() {
+        System.out.println("ShapesTests - Testing getStart");
         // Assert that the start point of the line is not null.
         assertNotNull(straightLineVector.getStart());
         Point start = straightLineVector.getStart();
@@ -47,6 +48,7 @@ class ShapesTests {
      */
     @Test
     public void getEnd() {
+        System.out.println("ShapesTests - Testing getEnd");
         // Assert that the start point of the line is not null.
         assertNotNull(straightLineVector.getEnd());
         Point end = straightLineVector.getEnd();
@@ -66,6 +68,7 @@ class ShapesTests {
      */
     @Test
     public void getColour() {
+        System.out.println("ShapesTests - Testing getColour");
         assertNotNull(straightLineVector.getColour());
         assertEquals(Color.CYAN, straightLineVector.getColour());
 
@@ -78,6 +81,7 @@ class ShapesTests {
      */
     @Test
     public void isFilled() {
+        System.out.println("ShapesTests - Testing isFilled");
         assertNotNull(straightLineVector.isFilled());
         assertEquals(false, straightLineVector.isFilled());
 
@@ -90,6 +94,7 @@ class ShapesTests {
      */
     @Test
     public void getType() {
+        System.out.println("ShapesTests - Testing getType");
         assertNotNull(straightLineVector.getType());
         assertEquals(Configuration.LINE, straightLineVector.getType());
 

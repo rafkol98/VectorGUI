@@ -16,7 +16,6 @@ class SaveLoadBoardTests {
 
     private Model model;
     private String name;
-    private File file;
 
     /**
      * Setup before each test.
@@ -25,13 +24,6 @@ class SaveLoadBoardTests {
     public void setup() {
         model = new Model();
         name = "example.vectorboard";
-        file = new File(name);
-
-        // Delete "example.vectorboard" file if it exists ( created in testSaveBoard() ) before every test.
-        // If it exists then delete it to ensure that the functionality is tested properly.
-        if (file.exists()) {
-            file.delete();
-        }
     }
 
     /**
@@ -40,6 +32,7 @@ class SaveLoadBoardTests {
      */
     @Test
     public void testSaveBoardErrorCase() throws IOException {
+        System.out.println("SaveLoadBoardTest - Testing changeFillValue");
         // Assert if an exception is thrown.
         assertThrows(IOException.class,
                 () -> {
@@ -54,6 +47,7 @@ class SaveLoadBoardTests {
      */
     @Test
     public void testSaveBoardErrorCaseDifferentEnding() throws IOException {
+        System.out.println("SaveLoadBoardTest - Testing testSaveBoardErrorCaseDifferentEnding");
         // Assert if an exception is thrown.
         assertThrows(IOException.class,
                 () -> {
@@ -68,12 +62,21 @@ class SaveLoadBoardTests {
      */
     @Test
     public void testSaveBoard() throws IOException {
+        System.out.println("SaveLoadBoardTest - Testing testSaveBoard");
+        // Get file with name "example.vectorboard".
+        File file = new File(name);
         // Check that file does not exist.
         assertFalse(file.exists());
         // Use saveBoard to save file.
         SaveLoadBoard.saveBoard(model, name);
-        // Checks that the file exists and that it was successfully saved.
+        // Checks that the file now exists and that it was successfully saved.
         assertTrue(file.exists());
+
+        // After checking that it successfully works, delete "example.vectorboard".
+        if (file.exists()) {
+            file.delete();
+        }
+
     }
 
     /**
@@ -82,6 +85,7 @@ class SaveLoadBoardTests {
      */
     @Test
     public void testLoadBoardErrorCase() throws IOException {
+        System.out.println("SaveLoadBoardTest - Testing testLoadBoardErrorCase");
         // Assert if an exception is thrown.
         assertThrows(IOException.class,
                 () -> {
@@ -96,6 +100,7 @@ class SaveLoadBoardTests {
      */
     @Test
     public void testLoadBoard() throws IOException, ClassNotFoundException {
+        System.out.println("SaveLoadBoardTest - Testing testLoadBoard");
         // Use saveBoard to save file.
         SaveLoadBoard.saveBoard(model, name);
         // Load the board.

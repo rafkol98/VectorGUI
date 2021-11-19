@@ -12,14 +12,21 @@ class ModelTest {
     private static Model model;
     private Color color = Color.BLACK;
 
+    /**
+     * Setup before each test.
+     */
     @BeforeEach
     public void setup() {
         // Initialise the model.
         model = new Model();
     }
 
+    /**
+     * Test that the changeColor functionality of the model works.
+     */
     @Test
     public void changeColor() {
+        System.out.println("ModelTest - Testing changeColor");
         // Change color of model.
         model.changeColor(Color.pink);
 
@@ -29,8 +36,12 @@ class ModelTest {
         assertEquals(Color.pink, model.getColor());
     }
 
+    /**
+     * Test that the selectShape functionality of the model works.
+     */
     @Test
     public void selectShape() {
+        System.out.println("ModelTest - Testing selectShape");
         // Select shape of model.
         model.selectShape(Configuration.CROSS);
         // Check that the color is not line.
@@ -40,8 +51,12 @@ class ModelTest {
     }
 
 
+    /**
+     * Test that the changeFillValue functionality of the model works.
+     */
     @Test
     public void changeFillValue() {
+        System.out.println("ModelTest - Testing changeFillValue");
         // Check if model has filling - it should return false.
         assertFalse(model.getHasFill());
         // change fill value.
@@ -49,8 +64,12 @@ class ModelTest {
         assertTrue(model.getHasFill());
     }
 
+    /**
+     * Test that the changeThickness functionality of the model works.
+     */
     @Test
     public void changeThickness() {
+        System.out.println("ModelTest - Testing changeThickness");
         // Initialise the model.
         model = new Model();
         // Check that thickness is not 15.
@@ -61,8 +80,12 @@ class ModelTest {
         assertEquals(model.getThickness(), 15);
     }
 
+    /**
+     * Test that the createVector functionality of the model works.
+     */
     @Test
     public void createVector() {
+        System.out.println("ModelTest - Testing createVector");
         // Check that there are not shapes currently in the stack.
         assertEquals(0, model.getShapes().size());
         // Create a new vector.
@@ -71,8 +94,12 @@ class ModelTest {
         assertEquals(1, model.getShapes().size());
     }
 
+    /**
+     * Test that the undo functionality of the model works.
+     */
     @Test
     public void undo() {
+        System.out.println("ModelTest - Testing undo");
         model.createVector(Configuration.ELLIPSE, 5, Color.red, false, new Point(40,20), new Point(60, 10), true);
         // check that the new vector was added.
         assertEquals(1, model.getShapes().size());
@@ -82,8 +109,12 @@ class ModelTest {
         assertEquals(0, model.getShapes().size());
     }
 
+    /**
+     * Test that the redo functionality of the model works.
+     */
     @Test
     public void redo() {
+        System.out.println("ModelTest - Testing redo");
         // Create a new vector.
         model.createVector(Configuration.ELLIPSE, 5, Color.red, false, new Point(40,20), new Point(60, 10), true);
         // check that the new vector was added.

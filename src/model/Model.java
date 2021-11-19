@@ -107,7 +107,6 @@ public class Model implements ModelInterface, Serializable {
     @Override
     public void changeFillValue() {
         hasFill = !hasFill;
-        System.out.println(hasFill);
         notifier.firePropertyChange("changeFillValue", !hasFill, hasFill);
     }
 
