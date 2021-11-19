@@ -1,5 +1,3 @@
-package shapes;
-
 import saveload.SaveLoadBoard;
 import model.Model;
 import org.junit.AfterClass;

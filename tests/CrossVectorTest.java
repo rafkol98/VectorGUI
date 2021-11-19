@@ -1,5 +1,3 @@
-package shapes;
-
 import model.shapes.CrossVector;
 import org.junit.Test;
 

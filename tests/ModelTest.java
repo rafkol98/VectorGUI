@@ -1,4 +1,3 @@
-package shapes;
 import configuration.Configuration;
 import model.Model;
 import org.junit.Before;
