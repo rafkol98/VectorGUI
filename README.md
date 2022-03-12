@@ -47,8 +47,6 @@ java main/VectorMain
 	5. Clear canvas:
 	An additional very small feature I implemented is to be able to clear the canvas. From the menu bar on the top left select "Clear" and all the shapes in the current canvas will be removed.
 
-
-
 HOW TO RUN THE TESTS
 
 1. Navigate to VectorGUI directory.
