@@ -1,7 +1,7 @@
 # VectorGUI
  A vector graphics drawing program developed using Java Swing.
  
- Object Oriented Programming - University of St Andrews
+ Object Oriented Programming Practical 4 - University of St Andrews
  
  **Compiling & Running Instruction**
  
